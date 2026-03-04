@@ -3,10 +3,20 @@ import backimg2 from '../assets/backimg2.jpg'
 import grid1 from '../assets/grid1.jpg'
 import grid2 from '../assets/gird2.jpg'
 import grid5 from '../assets/grid5.jpg'
+import { Link } from 'react-router-dom'
 
 export default function Homepage() {
   return (
     <> 
+        <header className='bg-amber-700  text-white p-6 shadow-lg shadow-amber-900/20'>
+          <nav className='flex justify-between'>
+            <span className='text-3xl font-bold '>Peace-flow</span>
+             <div className='mr-10 flex gap-3'>
+               <Link className='text-2xl text-amber-700 font-bold bg-white p-2 border-2 border-amber-950 rounded-4xl  transition duration-500 ease-in  transform hover:scale-110 hover:border-2' to='/'>Login</Link>
+               <Link className='text-2xl  bg-amber-900 p-2  rounded-3xl border-2 border-white font-bold transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-80' to='/'>SignUp</Link>
+             </div>
+          </nav>
+        </header>
       <div className='w-full h-[80vh] relative '>
           <img className='w-full h-full object-cover object-center relative' src={backimg2} alt="background image" />
            {/* <div className='text-white absolute top-50 left-4/12 text-center '>
