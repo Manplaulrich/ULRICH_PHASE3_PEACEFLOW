@@ -12,19 +12,14 @@ export default function Homepage() {
           <nav className='flex justify-between'>
             <span className='text-3xl font-bold '>Peace-flow</span>
              <div className='mr-10 flex gap-3'>
-               <Link className='text-2xl text-amber-700 font-bold bg-white p-2 border-2 border-amber-950 rounded-4xl  transition duration-500 ease-in  transform hover:scale-110 hover:border-2' to='/'>Login</Link>
+               <Link className='text-2xl text-amber-700 font-bold bg-white p-2 border-2 border-amber-950 rounded-4xl  transition duration-500 ease-in  transform hover:scale-110 hover:border-2' to='/login'>Login</Link>
                <Link className='text-2xl  bg-amber-900 p-2  rounded-3xl border-2 border-white font-bold transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-80' to='/'>SignUp</Link>
              </div>
           </nav>
         </header>
-      <div className='w-full h-[80vh] relative '>
-          <img className='w-full h-full object-cover object-center relative' src={backimg2} alt="background image" />
-           {/* <div className='text-white absolute top-50 left-4/12 text-center '>
-             <h1 className='lg:text-6xl mb-10 font-bold'>Welcom to <span>Peace-flow</span></h1>
-              <p className='lg:text-4xl bg-amber-100 text-amber-950 rounded-3xl p-3'>Automatically track raw materials and production. <br /> Save time, reduce waste, and plan better for your small business.
-            </p>
-           </div> */}
-
+      <div className='w-full h-[90vh] relative '>
+          <img className='w-full h-full object-cover object-center relative rounded-b-4xl' src={backimg2} alt="background image" />
+           
            <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
   
   <h1 className="text-3xl md:text-5xl lg:text-6xl mb-6 font-bold">
