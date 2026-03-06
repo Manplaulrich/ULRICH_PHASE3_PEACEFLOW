@@ -3,7 +3,8 @@ import { Routes, Route} from "react-router-dom"
 import Login from "../components/Login"
 import Homepage from "../components/Homepage"
 import SignUp from "../components/SignUp"
-import Navbar from "../components/admin/Navbar"
+ import Dashboard from "../components/admin/Dashboard"
+ import Test from "../Test"
 
 export default function AppRouter() {
   return (
@@ -11,7 +12,10 @@ export default function AppRouter() {
           <Route path="/" element={<Homepage/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<SignUp/>}/>
-           <Route path="/dashboard" element={<Navbar/>}/>
+           <Route path="/dashboard" element={<Dashboard/>}/>
+           <Route path="/test" element={<Test/>}/>
+           
+
       </Routes>
   )
 }

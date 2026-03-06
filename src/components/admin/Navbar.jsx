@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <>
        <div>
-         <header className=" fixed top-0 left-0 right-0 bg-amber-600 py-4 flex justify-between px-10 ">
+         <header className=" fixed top-0 left-0 right-0 bg-amber-600 py-4 flex justify-between px-10 shadow-lg shadow-black z-50">
              <div className="text-2xl text-white font-bold">Peace-flow</div>
              <nav className="flex gap-3 text-xl text-white">
                 <Link className="bg-amber-800 px-1 rounded" to='/dashboard'>Dashboard</Link>

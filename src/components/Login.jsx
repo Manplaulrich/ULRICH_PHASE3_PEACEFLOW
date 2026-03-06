@@ -56,7 +56,8 @@ export default function Login() {
              Don't have an account? <Link className="ml-2 text-xl text-amber-900" to='/signup'>Sign-Up</Link>
            </div>
             <div>
-               ADMIN DASHBOAR: <Link to='/dashboard'>Dashboard</Link>
+               ADMIN DASHBOAR: <Link to='/dashboard'>Dashboard</Link><br />
+               <Link to='/test'>Testing</Link>
             </div>
         </div>
 
