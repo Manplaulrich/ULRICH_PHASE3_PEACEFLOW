@@ -55,6 +55,9 @@ export default function Login() {
            <div className=" mt-5 flex justify-center">
              Don't have an account? <Link className="ml-2 text-xl text-amber-900" to='/signup'>Sign-Up</Link>
            </div>
+            <div>
+               ADMIN DASHBOAR: <Link to='/dashboard'>Dashboard</Link>
+            </div>
         </div>
 
       </div>
