@@ -9,7 +9,7 @@ export default function Navbar() {
              <div className="text-2xl text-white font-bold">Peace-flow</div>
              <nav className="flex gap-3 text-xl text-white">
                 <Link className="bg-amber-800 px-1 rounded" to='/dashboard'>Dashboard</Link>
-                <Link className="bg-amber-800 px-1 rounded"to='/rewmaterial'>Raw Materials</Link>
+                <Link className="bg-amber-800 px-1 rounded"to='/rawmaterial'>Raw Materials</Link>
                 <Link className="bg-amber-800 px-1 rounded" to='/productionsetup'>Production Setup</Link>
                 <Link className="bg-amber-800 px-1 rounded"  to='/newproduction'>New Production</Link>
                 <Link className="bg-amber-800 px-1 rounded" to='/stockreport'>Stock Report</Link>

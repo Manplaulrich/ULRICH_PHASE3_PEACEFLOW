@@ -1,12 +1,14 @@
 import { BrowserRouter } from "react-router-dom"
-import Homepage from "./components/Homepage"
+import { AppProvider } from "./components/itemContext/AppProvider"
 import AppRouter from "./lib/AppRouter"
 function App() {
 
   return (
     <>
        <BrowserRouter>
-         <AppRouter/>
+          <AppProvider>
+          <AppRouter/>
+          </AppProvider>
        </BrowserRouter>
     </>
   )
