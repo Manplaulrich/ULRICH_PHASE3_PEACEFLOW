@@ -3,7 +3,7 @@ import Navbar from "./Navbar"
 import { useContext } from "react"
 import { RawMaterialContext} from "../itemContext/RawMaterialContext"
 export default function Dashboard() {
-   const {material}=useContext(RawMaterialContext)
+   const {material,recipe}=useContext(RawMaterialContext)
      const handledLowStock=()=>{
             let newarray=material.filter(item=> item.status !=="inStock")
               return newarray.length 
@@ -32,7 +32,7 @@ export default function Dashboard() {
                      </div>
                      <div className="shadow-2xl rounded-2xl text-center pb-3">
                         <h4 className="text-2xl mb-5">Production Recipes</h4>
-                        <span className="text-2xl font-bold">0</span>
+                        <span className="text-2xl font-bold">{recipe.length}</span>
                      </div>
                      <div className="shadow-2xl rounded-2xl text-center pb-3">
                         <h4 className="text-2xl mb-5">Recent Production</h4>

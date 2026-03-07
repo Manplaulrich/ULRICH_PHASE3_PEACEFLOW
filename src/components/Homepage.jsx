@@ -3,6 +3,7 @@ import backimg2 from '../assets/backimg2.jpg'
 import grid1 from '../assets/grid1.jpg'
 import grid2 from '../assets/gird2.jpg'
 import grid5 from '../assets/grid5.jpg'
+import logo from '../assets/logo.png'
 import { Link } from 'react-router-dom'
 
 export default function Homepage() {
@@ -10,7 +11,7 @@ export default function Homepage() {
     <> 
         <header className='bg-amber-700  text-white p-6 shadow-lg shadow-amber-900/20'>
           <nav className='flex justify-between'>
-            <span className='text-3xl font-bold '>Peace-flow</span>
+            <span className='text-3xl font-bold '><img src={logo}/></span>
              <div className='mr-10 flex gap-3'>
                <Link className='text-2xl text-amber-700 font-bold bg-white p-2 border-2 border-amber-950 rounded-4xl  transition duration-500 ease-in  transform hover:scale-110 hover:border-2' to='/login'>Login</Link>
                <Link className='text-2xl  bg-amber-900 p-2  rounded-3xl border-2 border-white font-bold transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-80' to='/signup'>SignUp</Link>
