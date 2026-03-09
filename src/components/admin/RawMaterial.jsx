@@ -131,16 +131,16 @@ export default function RawMaterial() {
     )
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50">
             <Navbar />
             
             <div className="pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-12">
                 
-                {/* HEADER WITH GRADIENT */}
+                {/* HEADER WITH linear */}
                 <div className="mb-10">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                         <div>
-                            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                            <h1 className="text-4xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                                 Raw Materials
                             </h1>
                             <p className="text-gray-600 mt-2 text-lg">
@@ -152,8 +152,8 @@ export default function RawMaterial() {
                             onClick={onCloses}
                             className={`px-8 py-4 rounded-xl font-semibold text-white transition-all duration-300 transform hover:scale-105 shadow-lg ${
                                 show
-                                    ? 'bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800'
-                                    : 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700'
+                                    ? 'bg-linear-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800'
+                                    : 'bg-linear-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700'
                             }`}
                         >
                             {show ? (
@@ -218,7 +218,7 @@ export default function RawMaterial() {
                         id="material-form"
                         className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-10 border border-indigo-100 transform transition-all duration-500 animate-slideDown"
                     >
-                        <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-8 flex items-center gap-2">
+                        <h2 className="text-2xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-8 flex items-center gap-2">
                             {editIndex !== null ? (
                                 <>
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -298,7 +298,7 @@ export default function RawMaterial() {
                         <div className="flex gap-4 justify-end mt-8">
                             <button
                                 onClick={handleAdd}
-                                className="px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
+                                className="px-8 py-4 bg-linear-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
                             >
                                 {editIndex !== null ? (
                                     <>
@@ -333,7 +333,7 @@ export default function RawMaterial() {
                 <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
                     <table className="w-full">
                         <thead>
-                            <tr className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+                            <tr className="bg-linear-to-r from-indigo-600 to-purple-600 text-white">
                                 <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Material</th>
                                 <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Quantity</th>
                                 <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Unit</th>
@@ -352,7 +352,7 @@ export default function RawMaterial() {
                                     >
                                         <td className="py-5 px-6">
                                             <div className="flex items-center">
-                                                <div className="w-10 h-10 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
+                                                <div className="w-10 h-10 bg-linear-to-br from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
                                                     <span className="text-indigo-600 font-semibold">
                                                         {items.item.charAt(0).toUpperCase()}
                                                     </span>
@@ -380,7 +380,7 @@ export default function RawMaterial() {
                                             <div className="flex gap-3">
                                                 <button
                                                     onClick={() => onEdit(index)}
-                                                    className="px-5 py-2.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2 text-sm font-semibold"
+                                                    className="px-5 py-2.5 bg-linear-to-r from-yellow-400 to-orange-500 text-white rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2 text-sm font-semibold"
                                                 >
                                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -389,7 +389,7 @@ export default function RawMaterial() {
                                                 </button>
                                                 <button
                                                     onClick={() => onDelete(index)}
-                                                    className="px-5 py-2.5 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2 text-sm font-semibold"
+                                                    className="px-5 py-2.5 bg-linear-to-r from-red-400 to-red-500 text-white rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2 text-sm font-semibold"
                                                 >
                                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -415,7 +415,7 @@ export default function RawMaterial() {
                                             {material.length === 0 ? (
                                                 <button
                                                     onClick={onCloses}
-                                                    className="mt-4 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+                                                    className="mt-4 px-6 py-3 bg-linear-to-r from-indigo-500 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
                                                 >
                                                     Add Your First Material
                                                 </button>

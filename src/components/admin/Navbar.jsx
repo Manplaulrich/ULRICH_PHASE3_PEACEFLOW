@@ -49,7 +49,7 @@ export default function Navbar() {
   return (
     <>
       <div>
-        <header className="fixed top-0 left-0 right-0 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-600 py-3 shadow-2xl z-50">
+        <header className="fixed top-0 left-0 right-0 bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 py-3 shadow-2xl z-50">
           <div className="flex justify-between items-center px-4 md:px-8 lg:px-12">
             {/* Logo - Larger size */}
             <Link 
@@ -104,7 +104,7 @@ export default function Navbar() {
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full pl-1 pr-3 lg:pl-2 lg:pr-4 py-1 hover:bg-white/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg group"
               >
-                <div className="w-9 h-9 lg:w-10 lg:h-10 bg-gradient-to-br from-amber-900 to-amber-700 rounded-full flex items-center justify-center border-2 border-white/90 shadow-md group-hover:shadow-amber-300/50 transition-all duration-300">
+                <div className="w-9 h-9 lg:w-10 lg:h-10 bg-linear-to-br from-amber-900 to-amber-700 rounded-full flex items-center justify-center border-2 border-white/90 shadow-md group-hover:shadow-amber-300/50 transition-all duration-300">
                   <User className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
                 </div>
                 <span className="text-white text-sm font-medium hidden sm:block">Profile</span>
@@ -115,7 +115,7 @@ export default function Navbar() {
               {isProfileOpen && (
                 <div className="absolute right-0 mt-3 w-56 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-amber-100 overflow-hidden transform transition-all duration-300 animate-fadeIn">
                   {/* User Info */}
-                  <div className="px-4 py-3 bg-gradient-to-r from-amber-50 to-white border-b border-amber-100">
+                  <div className="px-4 py-3 bg-linear-to-r from-amber-50 to-white border-b border-amber-100">
                     <p className="text-sm font-semibold text-amber-900">John Doe</p>
                     <p className="text-xs text-gray-600">john@example.com</p>
                   </div>
@@ -146,7 +146,7 @@ export default function Navbar() {
                   </div>
 
                   {/* Decorative bottom accent */}
-                  <div className="h-1 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400"></div>
+                  <div className="h-1 bg-linear-to-r from-amber-400 via-amber-300 to-amber-400"></div>
                 </div>
               )}
             </div>
@@ -162,7 +162,7 @@ export default function Navbar() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fadeIn">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
-            <div className="bg-gradient-to-r from-amber-900 via-amber-700 to-amber-600 p-6 rounded-t-2xl">
+            <div className="bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 p-6 rounded-t-2xl">
               <h2 className="text-2xl font-bold text-white">Add New Member</h2>
               <p className="text-amber-100 text-sm mt-1">Create a new user account</p>
             </div>
@@ -250,7 +250,7 @@ export default function Navbar() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-gradient-to-r from-amber-900 via-amber-700 to-amber-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-medium"
+                  className="flex-1 px-4 py-2 bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-medium"
                 >
                   Add Member
                 </button>

@@ -8,8 +8,8 @@ import logo from '../assets/logo.png'
 export default function Homepage() {
   return (
     <> 
-      {/* Enhanced Header with better contrast and smooth gradient */}
-      <header className="bg-gradient-to-r from-amber-900 via-amber-700 to-amber-600 py-4 shadow-2xl relative">
+      {/* Enhanced Header with better contrast and smooth linear */}
+      <header className="bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 py-4 shadow-2xl relative">
         <nav className="flex flex-col md:flex-row justify-between items-center px-4 md:px-12 lg:px-24">
           <div className="mb-4 md:mb-0 transform hover:scale-105 transition-all duration-500">
             <img 
@@ -26,7 +26,7 @@ export default function Homepage() {
               Login
             </Link>
             <Link 
-              className='text-lg md:text-xl text-white bg-gradient-to-r from-amber-800 to-amber-700 px-8 py-3 rounded-full border-2 border-white/50 hover:bg-gradient-to-l hover:from-amber-900 hover:to-amber-800 hover:border-amber-300 hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg' 
+              className='text-lg md:text-xl text-white bg-linear-to-r from-amber-800 to-amber-700 px-8 py-3 rounded-full border-2 border-white/50 hover:bg-linear-to-l hover:from-amber-900 hover:to-amber-800 hover:border-amber-300 hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg' 
               to='/signup'
             >
               Sign Up
@@ -43,17 +43,17 @@ export default function Homepage() {
           alt="background image" 
         />
         
-        {/* Multi-layer gradient overlay for better text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/70"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-amber-900/30 via-transparent to-amber-900/30"></div>
+        {/* Multi-layer linear overlay for better text contrast */}
+        <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/40 to-black/70"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-amber-900/30 via-transparent to-amber-900/30"></div>
         
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 z-10 animate-fade-in-up">
           <h1 className="text-5xl md:text-7xl lg:text-8xl mb-8 font-bold">
-            <span className="bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent drop-shadow-2xl">
+            <span className="bg-linear-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent drop-shadow-2xl">
               Welcome to
             </span>
             <br />
-            <span className="text-6xl md:text-8xl lg:text-9xl bg-gradient-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
+            <span className="text-6xl md:text-8xl lg:text-9xl bg-linear-to-r from-amber-300 to-amber-500 bg-clip-text text-transparent">
               Peace-flow
             </span>
           </h1>
@@ -66,7 +66,7 @@ export default function Homepage() {
       </div>
 
       {/* Features Grid with edge-to-edge alignment */}
-      <div className='bg-gradient-to-b from-amber-50 to-white py-15'>
+      <div className='bg-linear-to-b from-amber-50 to-white py-15'>
         <div className='px-4 md:px-12 lg:px-24'>
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-amber-900">
             Why Choose <span className="text-amber-600">Peace-flow?</span>
@@ -77,7 +77,7 @@ export default function Homepage() {
             {/* Card 1 */}
             <div className='group bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-all duration-700 hover:shadow-amber-300/50'>
               <div className='h-80 overflow-hidden relative'>
-                <div className="absolute inset-0 bg-gradient-to-t from-amber-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-amber-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
                 <img 
                   src={grid1} 
                   alt="Track Materials" 
@@ -97,7 +97,7 @@ export default function Homepage() {
             {/* Card 2 */}
             <div className='group bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-all duration-700 hover:shadow-amber-300/50'>
               <div className='h-80 overflow-hidden relative'>
-                <div className="absolute inset-0 bg-gradient-to-t from-amber-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-amber-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
                 <img 
                   src={grid2} 
                   alt="Production Recipes" 
@@ -117,7 +117,7 @@ export default function Homepage() {
             {/* Card 3 */}
             <div className='group bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-all duration-700 hover:shadow-amber-300/50'>
               <div className='h-80 overflow-hidden relative'>
-                <div className="absolute inset-0 bg-gradient-to-t from-amber-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-amber-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
                 <img 
                   src={grid5} 
                   alt="Stock Alerts" 
@@ -138,9 +138,9 @@ export default function Homepage() {
       </div>
 
       {/* Enhanced Footer with edge-to-edge alignment */}
-      <footer className="bg-gradient-to-br from-amber-950 via-amber-900 to-amber-800 text-white relative">
+      <footer className="bg-linear-to-br from-amber-950 via-amber-900 to-amber-800 text-white relative">
         {/* Decorative top wave */}
-        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400"></div>
+        <div className="absolute top-0 left-0 right-0 h-2 bg-linear-to-r from-amber-400 via-amber-300 to-amber-400"></div>
         
         {/* Main Footer Content - Full width */}
         <div className='px-4 md:px-12 lg:px-24 py-16'>
@@ -148,7 +148,7 @@ export default function Homepage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             {/* Brand Column */}
             <div className="col-span-1 md:col-span-1">
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent mb-6">
+              <h2 className="text-4xl font-bold bg-linear-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent mb-6">
                 Peace-flow
               </h2>
               <p className="text-amber-200/90 text-base leading-relaxed">
@@ -195,20 +195,20 @@ export default function Homepage() {
               <h3 className="text-xl font-semibold mb-6 border-b-2 border-amber-500/50 pb-3">Contact</h3>
               <ul className="space-y-4 text-amber-200/80">
                 <li className="flex items-center gap-3 hover:text-amber-300 transition-colors">
-                  <svg className="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                   </svg>
                   <span>support@peace-flow.com</span>
                 </li>
                 <li className="flex items-center gap-3 hover:text-amber-300 transition-colors">
-                  <svg className="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                   </svg>
                   <span>+1 (555) 123-4567</span>
                 </li>
                 <li className="flex items-center gap-3 hover:text-amber-300 transition-colors">
-                  <svg className="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
                   <span>123 Business Ave, Suite 100<br />New York, NY 10001</span>

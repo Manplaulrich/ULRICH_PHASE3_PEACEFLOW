@@ -6,7 +6,7 @@ export default function Login() {
   return (
     <>
       {/* Navbar */}
-      <nav className="bg-gradient-to-r from-amber-900 via-amber-700 to-amber-600 py-3 px-4 md:px-12 lg:px-24 shadow-2xl relative">
+      <nav className="bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 py-3 px-4 md:px-12 lg:px-24 shadow-2xl relative">
         <div className="flex justify-between items-center">
           
           {/* Logo */}
@@ -25,9 +25,9 @@ export default function Login() {
           <div className="flex gap-4">
             <Link 
               to="/signup" 
-              className="transform text-white bg-gradient-to-r from-amber-800 to-amber-700 px-6 py-2 rounded-full border-2 border-white/50 
+              className="transform text-white bg-linear-to-r from-amber-800 to-amber-700 px-6 py-2 rounded-full border-2 border-white/50 
                          transition-all duration-300 shadow-lg text-sm md:text-base
-                         hover:bg-gradient-to-l hover:from-amber-900 hover:to-amber-800 
+                         hover:bg-linear-to-l hover:from-amber-900 hover:to-amber-800 
                          hover:border-amber-300 hover:shadow-2xl hover:scale-110 hover:-translate-y-1
                          cursor-pointer"
             >
@@ -39,27 +39,27 @@ export default function Login() {
       </nav>
 
       {/* Login Form Section */}
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-amber-50 to-white px-4 py-12 relative">
+      <div className="flex items-center justify-center min-h-screen bg-linear-to-b from-amber-50 to-white px-4 py-12 relative">
         
         {/* Decorative background pattern */}
         <div className="absolute inset-0 opacity-5" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, #92400e 1px, transparent 0)`,
+          backgroundImage: `radial-linear(circle at 2px 2px, #92400e 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }}></div>
 
         <div className="bg-white/90 backdrop-blur-sm shadow-2xl rounded-2xl p-8 w-full max-w-md relative transform hover:scale-105 transition-all duration-500 border border-amber-100">
 
           {/* Decorative top accent */}
-          <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 rounded-t-2xl"></div>
+          <div className="absolute top-0 left-0 right-0 h-2 bg-linear-to-r from-amber-400 via-amber-300 to-amber-400 rounded-t-2xl"></div>
           
           {/* Profile Icon inside form */}
           <div className="flex justify-center mb-6">
-            <div className="w-24 h-24 bg-gradient-to-br from-amber-900 to-amber-700 rounded-full flex items-center justify-center shadow-xl border-4 border-white/90 transform hover:scale-110 transition-all duration-500 hover:rotate-6 cursor-pointer">
+            <div className="w-24 h-24 bg-linear-to-br from-amber-900 to-amber-700 rounded-full flex items-center justify-center shadow-xl border-4 border-white/90 transform hover:scale-110 transition-all duration-500 hover:rotate-6 cursor-pointer">
               <User className="w-12 h-12 text-white" />
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-amber-900 to-amber-700 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold text-center mb-2 bg-linear-to-r from-amber-900 to-amber-700 bg-clip-text text-transparent">
             Welcome Back
           </h1>
           <p className="text-center text-gray-600 mb-8">Login to continue your journey</p>
@@ -99,7 +99,7 @@ export default function Login() {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-amber-900 via-amber-700 to-amber-600 text-white py-3 rounded-xl hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group mt-2"
+              className="w-full bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 text-white py-3 rounded-xl hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group mt-2"
             >
               <span>Login</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />

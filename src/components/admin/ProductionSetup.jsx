@@ -144,7 +144,7 @@ export default function ProductionSetup() {
   //// UI
   ////////////////////////////////////////////////////////
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50">
       <Navbar />
       
       <div className="pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -152,7 +152,7 @@ export default function ProductionSetup() {
         {/* HEADER WITH SEARCH */}
         <div className="mb-8 space-y-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               Production Setup
             </h1>
             
@@ -160,8 +160,8 @@ export default function ProductionSetup() {
               onClick={toggleForm}
               className={`px-6 py-3 rounded-xl text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg ${
                 showForm
-                  ? "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
-                  : "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+                  ? "bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+                  : "bg-linear-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
               }`}
             >
               {showForm ? "✕ Cancel" : "+ Create New Recipe"}
@@ -209,7 +209,7 @@ export default function ProductionSetup() {
         {/* FORM */}
         {showForm && (
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-10 border border-indigo-100 transform transition-all duration-500 animate-fadeIn">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6">
+            <h2 className="text-2xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6">
               {editIndex !== null ? "✏️ Edit Recipe" : "✨ Create New Recipe"}
             </h2>
 
@@ -273,7 +273,7 @@ export default function ProductionSetup() {
                   disabled={!rawMaterial || !quantity}
                   className={`rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
                     rawMaterial && quantity
-                      ? "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg"
+                      ? "bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg"
                       : "bg-gray-200 text-gray-400 cursor-not-allowed"
                   }`}
                 >
@@ -284,7 +284,7 @@ export default function ProductionSetup() {
 
             {/* MATERIAL LIST */}
             {materialsList.length > 0 && (
-              <div className="bg-gradient-to-br from-gray-50 to-indigo-50 rounded-xl p-6 mb-6 border border-indigo-100">
+              <div className="bg-linear-to-br from-gray-50 to-indigo-50 rounded-xl p-6 mb-6 border border-indigo-100">
                 <h3 className="text-sm font-semibold text-gray-700 mb-3">Materials List:</h3>
                 <div className="space-y-2">
                   {materialsList.map((mat, index) => (
@@ -312,7 +312,7 @@ export default function ProductionSetup() {
             <div className="flex justify-end">
               <button
                 onClick={saveRecipe}
-                className="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="px-8 py-3 bg-linear-to-r from-indigo-500 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 {editIndex !== null ? "✏️ Update Recipe" : "✨ Create Recipe"}
               </button>
@@ -332,7 +332,7 @@ export default function ProductionSetup() {
                   key={index}
                   className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden"
                 >
-                  <div className="p-6 bg-gradient-to-br from-white to-indigo-50/30">
+                  <div className="p-6 bg-linear-to-br from-white to-indigo-50/30">
                     <div className="flex justify-between items-start mb-3">
                       <h2 className="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors duration-300">
                         {item.name}
@@ -342,7 +342,7 @@ export default function ProductionSetup() {
                       </span>
                     </div>
                     
-                    <div className="mb-4 p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg text-white">
+                    <div className="mb-4 p-3 bg-linear-to-r from-indigo-500 to-purple-600 rounded-lg text-white">
                       <p className="text-sm opacity-90">Output:</p>
                       <p className="text-2xl font-bold">{item.output}</p>
                     </div>
@@ -368,13 +368,13 @@ export default function ProductionSetup() {
                   <div className="flex justify-between p-4 bg-gray-50 border-t border-gray-100">
                     <button
                       onClick={() => onEdit(originalIndex)}
-                      className="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 text-sm font-semibold shadow-md"
+                      className="px-4 py-2 bg-linear-to-r from-yellow-400 to-orange-500 text-white rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 text-sm font-semibold shadow-md"
                     >
                       ✏️ Edit
                     </button>
                     <button
                       onClick={() => onDelete(originalIndex)}
-                      className="px-4 py-2 bg-gradient-to-r from-red-400 to-red-500 text-white rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-300 transform hover:scale-105 text-sm font-semibold shadow-md"
+                      className="px-4 py-2 bg-linear-to-r from-red-400 to-red-500 text-white rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-300 transform hover:scale-105 text-sm font-semibold shadow-md"
                     >
                       🗑️ Delete
                     </button>

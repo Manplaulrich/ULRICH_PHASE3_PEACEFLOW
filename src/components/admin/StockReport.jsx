@@ -264,21 +264,21 @@ export default function StockReport() {
 
   const getStatusClass = (quantity, minStock) => {
     return Number(quantity) <= Number(minStock)
-      ? "bg-gradient-to-r from-red-50 to-red-100 text-red-700 border-l-4 border-red-500"
-      : "bg-gradient-to-r from-green-50 to-green-100 text-green-700 border-l-4 border-green-500"
+      ? "bg-linear-to-r from-red-50 to-red-100 text-red-700 border-l-4 border-red-500"
+      : "bg-linear-to-r from-green-50 to-green-100 text-green-700 border-l-4 border-green-500"
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         
-        {/* HEADER WITH GRADIENT */}
+        {/* HEADER WITH linear */}
         <div className="mb-10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent flex items-center gap-3">
+              <h1 className="text-4xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent flex items-center gap-3">
                 <FileText size={32} className="text-blue-600" />
                 Stock Report
               </h1>
@@ -291,7 +291,7 @@ export default function StockReport() {
             <button
               onClick={generatePDF}
               disabled={isGenerating}
-              className={`group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 hover:shadow-2xl flex items-center gap-3 ${
+              className={`group relative px-8 py-4 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 hover:shadow-2xl flex items-center gap-3 ${
                 isGenerating ? 'opacity-75 cursor-not-allowed' : ''
               }`}
             >
@@ -323,7 +323,7 @@ export default function StockReport() {
                 <p className="text-4xl font-bold text-gray-800">{totalMaterials}</p>
                 <p className="text-xs text-gray-400 mt-2">Active inventory items</p>
               </div>
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <div className="w-14 h-14 bg-linear-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <Package className="text-white" size={28} />
               </div>
             </div>
@@ -339,7 +339,7 @@ export default function StockReport() {
                 <p className="text-4xl font-bold text-gray-800">{totalProduction}</p>
                 <p className="text-xs text-gray-400 mt-2">Units produced</p>
               </div>
-              <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <div className="w-14 h-14 bg-linear-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <TrendingUp className="text-white" size={28} />
               </div>
             </div>
@@ -355,7 +355,7 @@ export default function StockReport() {
                 <p className="text-4xl font-bold text-gray-800">{lowStockItems}</p>
                 <p className="text-xs text-gray-400 mt-2">Need attention</p>
               </div>
-              <div className="w-14 h-14 bg-gradient-to-br from-red-400 to-red-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <div className="w-14 h-14 bg-linear-to-br from-red-400 to-red-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <AlertTriangle className="text-white" size={28} />
               </div>
             </div>
@@ -371,7 +371,7 @@ export default function StockReport() {
                 <p className="text-4xl font-bold text-gray-800">{stockHealthPercentage}%</p>
                 <p className="text-xs text-gray-400 mt-2">Healthy stock ratio</p>
               </div>
-              <div className="w-14 h-14 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <div className="w-14 h-14 bg-linear-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <BarChart3 className="text-white" size={28} />
               </div>
             </div>
@@ -380,7 +380,7 @@ export default function StockReport() {
 
         {/* MATERIAL TABLE */}
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden mb-8 border border-gray-200">
-          <div className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600">
+          <div className="px-8 py-6 bg-linear-to-r from-blue-600 to-indigo-600">
             <h2 className="text-xl font-semibold text-white flex items-center gap-3">
               <Package size={24} />
               Current Materials Inventory
@@ -393,7 +393,7 @@ export default function StockReport() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-gradient-to-r from-gray-800 to-gray-900 text-white">
+                <tr className="bg-linear-to-r from-gray-800 to-gray-900 text-white">
                   <th className="px-8 py-5 text-left text-sm font-semibold uppercase tracking-wider">Material</th>
                   <th className="px-8 py-5 text-left text-sm font-semibold uppercase tracking-wider">Quantity</th>
                   <th className="px-8 py-5 text-left text-sm font-semibold uppercase tracking-wider">Unit</th>
@@ -411,7 +411,7 @@ export default function StockReport() {
                   >
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <div className="w-10 h-10 bg-linear-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                           <Package size={20} className="text-blue-600" />
                         </div>
                         <span className="font-semibold text-gray-900">{item.item}</span>
@@ -446,7 +446,7 @@ export default function StockReport() {
           </div>
 
           {/* Table Footer */}
-          <div className="px-8 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
+          <div className="px-8 py-4 bg-linear-to-r from-gray-50 to-gray-100 border-t border-gray-200">
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-600 font-medium flex items-center gap-2">
                 <CheckCircle size={16} className="text-green-500" />
@@ -462,7 +462,7 @@ export default function StockReport() {
 
         {/* PRODUCTION TABLE */}
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
-          <div className="px-8 py-6 bg-gradient-to-r from-green-600 to-emerald-600">
+          <div className="px-8 py-6 bg-linear-to-r from-green-600 to-emerald-600">
             <h2 className="text-xl font-semibold text-white flex items-center gap-3">
               <Calendar size={24} />
               Daily Production Records
@@ -475,7 +475,7 @@ export default function StockReport() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-gradient-to-r from-gray-800 to-gray-900 text-white">
+                <tr className="bg-linear-to-r from-gray-800 to-gray-900 text-white">
                   <th className="px-8 py-5 text-left text-sm font-semibold uppercase tracking-wider">Recipe</th>
                   <th className="px-8 py-5 text-left text-sm font-semibold uppercase tracking-wider">Quantity</th>
                   <th className="px-8 py-5 text-left text-sm font-semibold uppercase tracking-wider">Materials Used</th>
@@ -493,7 +493,7 @@ export default function StockReport() {
                     >
                       <td className="px-8 py-5">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-emerald-100 rounded-lg flex items-center justify-center">
+                          <div className="w-10 h-10 bg-linear-to-br from-green-100 to-emerald-100 rounded-lg flex items-center justify-center">
                             <PieChart size={20} className="text-green-600" />
                           </div>
                           <span className="font-semibold text-gray-900">{p.recipe}</span>
@@ -539,7 +539,7 @@ export default function StockReport() {
 
           {/* Production Summary Footer */}
           {productionHistory.length > 0 && (
-            <div className="px-8 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
+            <div className="px-8 py-4 bg-linear-to-r from-gray-50 to-gray-100 border-t border-gray-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <span className="text-gray-600 font-medium flex items-center gap-2">
                   <TrendingUp size={16} className="text-green-500" />

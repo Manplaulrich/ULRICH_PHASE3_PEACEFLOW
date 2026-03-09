@@ -71,7 +71,7 @@ export default function Dashboard() {
     if (lowStockItems.length === 0) {
       return (
         <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border border-green-200 transition-all duration-300 hover:shadow-md">
-          <CheckCircle size={24} className="text-green-500 flex-shrink-0" />
+          <CheckCircle size={24} className="text-green-500 shrink-0" />
           <p className="text-green-700 font-medium text-base">
             ✓ All materials are above minimum stock levels
           </p>
@@ -86,7 +86,7 @@ export default function Dashboard() {
             key={index} 
             className="flex items-center gap-4 p-4 bg-amber-50 rounded-xl border border-amber-200 hover:bg-amber-100 hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
           >
-            <AlertTriangle size={22} className="text-amber-500 flex-shrink-0" />
+            <AlertTriangle size={22} className="text-amber-500 shrink-0" />
             <div className="flex-1 min-w-0">
               <span className="font-semibold text-amber-800 text-base">{item.item}</span>
               <span className="text-amber-600 ml-2 text-sm">
@@ -440,7 +440,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
       
       <div className="px-4 sm:px-6 lg:px-8 py-24 max-w-7xl mx-auto">
@@ -448,7 +448,7 @@ export default function Dashboard() {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
           <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent flex items-center gap-3">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent flex items-center gap-3">
               <Factory size={36} className="text-blue-600" />
               Production Dashboard
             </h1>
@@ -465,8 +465,8 @@ export default function Dashboard() {
               shadow-lg hover:shadow-xl flex items-center justify-center gap-3
               text-sm sm:text-base
               ${showForms 
-                ? 'bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600' 
-                : 'bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700'
+                ? 'bg-linear-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600' 
+                : 'bg-linear-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700'
               }
             `}
           >
@@ -487,7 +487,7 @@ export default function Dashboard() {
         {/* Production Forms Section */}
         <div className={`
           transition-all duration-700 ease-in-out overflow-hidden
-          ${showForms ? 'max-h-[2500px] opacity-100 mb-8' : 'max-h-0 opacity-0'}
+          ${showForms ? 'max-h-625 opacity-100 mb-8' : 'max-h-0 opacity-0'}
         `}>
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 border border-blue-100">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
@@ -498,7 +498,7 @@ export default function Dashboard() {
             <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
               
               {/* Goals Management Card */}
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-blue-200">
+              <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-blue-200">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                   <h3 className="text-base sm:text-lg font-semibold text-gray-800 flex items-center gap-2">
                     <Award size={20} className="text-blue-600" />
@@ -524,7 +524,7 @@ export default function Dashboard() {
                       <BarChart3 size={16} className="text-blue-600" />
                       Total Material Requirements (All Goals)
                     </h4>
-                    <div className="space-y-2 max-h-[200px] overflow-y-auto custom-scrollbar">
+                    <div className="space-y-2 max-h-50 overflow-y-auto custom-scrollbar">
                       {cumulativeRequirements.map((req, idx) => {
                         const available = material.find(m => m.item === req.recipe)?.quantity || 0
                         const sufficient = available >= req.totalRequired
@@ -614,7 +614,7 @@ export default function Dashboard() {
                           {/* Detailed requirements for this goal */}
                           <div className="bg-white rounded-lg border border-gray-200 p-4">
                             <h5 className="text-sm font-medium text-gray-700 mb-3">Material Requirements:</h5>
-                            <div className="space-y-3 max-h-[250px] overflow-y-auto custom-scrollbar">
+                            <div className="space-y-3 max-h-62.5 overflow-y-auto custom-scrollbar">
                               {goalDetails.requirements.map((req, idx) => (
                                 <div key={idx} className="text-sm p-3 bg-gray-50 rounded-lg">
                                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-2">
@@ -675,7 +675,7 @@ export default function Dashboard() {
                 )}
 
                 {/* Goals List */}
-                <div className="space-y-4 max-h-[450px] overflow-y-auto pr-2 custom-scrollbar">
+                <div className="space-y-4 max-h-112.5 overflow-y-auto pr-2 custom-scrollbar">
                   {goals.length > 0 ? (
                     goals.map((goal) => {
                       const produced = todayProductionByRecipe[goal.recipe] || 0
@@ -720,8 +720,8 @@ export default function Dashboard() {
                               <div 
                                 className={`h-3 rounded-full transition-all duration-500 ${
                                   progress >= 100 
-                                    ? 'bg-gradient-to-r from-green-400 to-green-500' 
-                                    : 'bg-gradient-to-r from-blue-400 to-blue-500'
+                                    ? 'bg-linear-to-r from-green-400 to-green-500' 
+                                    : 'bg-linear-to-r from-blue-400 to-blue-500'
                                 }`}
                                 style={{ width: `${Math.min(progress, 100)}%` }}
                               />
@@ -752,7 +752,7 @@ export default function Dashboard() {
               </div>
 
               {/* Record Production Card */}
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 sm:p-6 border border-green-200">
+              <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-xl p-4 sm:p-6 border border-green-200">
                 <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2">
                   <Calendar size={20} className="text-green-600" />
                   Record Production
@@ -803,7 +803,7 @@ export default function Dashboard() {
                       transform hover:scale-[1.02] active:scale-[0.98]
                       flex items-center justify-center gap-2 text-sm sm:text-base
                       ${selectedRecipe && actualProduced && !isSubmitting
-                        ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg hover:shadow-xl'
+                        ? 'bg-linear-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg hover:shadow-xl'
                         : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                       }
                     `}
@@ -909,7 +909,7 @@ export default function Dashboard() {
 
         {/* Low Stock Alert Section */}
         <div className="bg-white mt-8 rounded-xl shadow-lg overflow-hidden border border-amber-200">
-          <div className="px-4 sm:px-6 py-4 bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+          <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-amber-50 to-orange-50 border-b border-amber-200">
             <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2 text-amber-800">
               <AlertTriangle className="text-amber-600" size={24} />
               Low Stock Alerts
@@ -922,7 +922,7 @@ export default function Dashboard() {
 
         {/* Production History Table */}
         <div className="bg-white mt-8 rounded-xl shadow-lg overflow-hidden border border-gray-200">
-          <div className="px-4 sm:px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+          <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-gray-50 to-gray-100 border-b border-gray-200">
             <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2 text-gray-800">
               <ClipboardList className="text-blue-600" size={24} />
               Daily Production Log
@@ -930,9 +930,9 @@ export default function Dashboard() {
           </div>
           
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[800px]">
+            <table className="w-full min-w-200">
               <thead>
-                <tr className="bg-gradient-to-r from-gray-800 to-gray-900 text-white">
+                <tr className="bg-linear-to-r from-gray-800 to-gray-900 text-white">
                   <th className="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold uppercase tracking-wider">Recipe</th>
                   <th className="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold uppercase tracking-wider">Quantity</th>
                   <th className="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold uppercase tracking-wider">Materials Used</th>
@@ -990,7 +990,7 @@ export default function Dashboard() {
                         {!showForms && (
                           <button
                             onClick={() => setShowForms(true)}
-                            className="mt-4 px-6 sm:px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 
+                            className="mt-4 px-6 sm:px-8 py-3 bg-linear-to-r from-blue-500 to-indigo-600 
                                      text-white rounded-xl font-semibold text-sm sm:text-base
                                      hover:from-blue-600 hover:to-indigo-700 
                                      transition-all duration-300 transform hover:scale-105
@@ -1009,7 +1009,7 @@ export default function Dashboard() {
           
           {/* Table Footer */}
           {productionHistory.length > 0 && (
-            <div className="px-4 sm:px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
+            <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-gray-50 to-gray-100 border-t border-gray-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <span className="text-gray-600 font-medium flex items-center gap-2 text-sm">
                   <BarChart3 size={16} className="text-gray-400" />
