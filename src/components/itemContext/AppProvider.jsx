@@ -7,6 +7,7 @@ export  function AppProvider({children}) {
         { item:'sugar', quantity:5, unit:"kg", minStock:5 ,status:" LowStock"},
         { item:'salt', quantity:3, unit:"kg", minStock:2 ,status:"inStock"},
         { item:'butter', quantity:3, unit:"kg", minStock:5 ,status:"LowStock"}
+
       
     ])
 
@@ -37,9 +38,11 @@ export  function AppProvider({children}) {
        }
        
     ])
+const [productionHistory,setProductionHistory]=useState([])
+
   return (
     <>
-       <RawMaterialContext.Provider value={{material, setMaterial,recipe,setRecipe}}>
+       <RawMaterialContext.Provider value={{material, setMaterial,recipe,setRecipe,productionHistory,setProductionHistory}}>
            {children}
        </RawMaterialContext.Provider>
     </>

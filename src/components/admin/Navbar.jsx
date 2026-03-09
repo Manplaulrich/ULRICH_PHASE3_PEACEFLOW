@@ -8,11 +8,11 @@ export default function Navbar() {
          <header className=" fixed top-0 left-0 right-0 bg-amber-600 py-4 flex justify-between px-10 shadow-lg shadow-black z-50">
              <div className="text-2xl text-white font-bold">Peace-flow</div>
              <nav className="flex gap-3 text-xl text-white">
-                <Link  to='/dashboard'>Dashboard</Link>
-                <Link to='/rawmaterial'>Raw Materials</Link>
-                <Link  to='/setproduction'>Production Setup</Link>
-                <Link   to='/newproduction'>New Production</Link>
-                <Link  to='/stockreport'>Stock Report</Link>
+                <Link className="bg-amber-800 px-1 rounded" to='/dashboard'>Dashboard</Link>
+                <Link className="bg-amber-800 px-1 rounded"to='/rawmaterial'>Raw Materials</Link>
+                <Link className="bg-amber-800 px-1 rounded" to='/setproduction'>Production Setup</Link>
+                <Link className="bg-amber-800 px-1 rounded"  to='/newproduction'>New Production</Link>
+                <Link className="bg-amber-800 px-1 rounded" to='/report'>Stock Report</Link>
                 <button><Link to='/'>Home</Link></button>
              </nav>
          </header>
