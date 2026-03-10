@@ -7,6 +7,10 @@ import SignUp from "../components/SignUp"
  import RawMaterial from "../components/admin/RawMaterial" 
  import ProductionSetup from "../components/admin/ProductionSetup"
  import StockReport from "../components/admin/StockReport"
+
+ import DashboardStaff from "../components/staff/DashboardStaff"
+ import RawMaterialStaff from "../components/staff/RawmaterialStaff"
+ import StockReportStaff from "../components/staff/StockReportStaff"
  import Test from "../Test"
 
 export default function AppRouter() {
@@ -19,6 +23,9 @@ export default function AppRouter() {
            <Route path="/rawmaterial" element={<RawMaterial/>}/>
            <Route path="/setproduction" element={<ProductionSetup/>}/>
            <Route path="/report" element={<StockReport/>}/>
+           <Route path="/staff" element={<DashboardStaff/>}/>
+           <Route path="/rawmaterialstaff" element={<RawMaterialStaff/>}/>
+           <Route path="/reportstaff" element={<StockReportStaff/>}/>
 
            <Route path="/test" element={<Test/>}/>
            

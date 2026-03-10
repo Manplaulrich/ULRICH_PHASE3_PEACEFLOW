@@ -118,7 +118,8 @@ export default function Login() {
                 Sign Up
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </Link>
-              <Link to='/dashboard'>dashboard</Link>
+              <Link to='/dashboard'>dashboard</Link> <br />
+              <Link to="/staff">STAFF_DASHBOARD</Link>
             </p>
           </div>
 
