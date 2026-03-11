@@ -9,7 +9,7 @@ import SignUp from "../components/SignUp"
  import StockReport from "../components/admin/StockReport"
 
  import DashboardStaff from "../components/staff/DashboardStaff"
- import RawMaterialStaff from "../components/staff/RawmaterialStaff"
+ import RawMaterialStaff from "../components/admin/RawMaterial"
  import StockReportStaff from "../components/staff/StockReportStaff"
  import Test from "../Test"
 
