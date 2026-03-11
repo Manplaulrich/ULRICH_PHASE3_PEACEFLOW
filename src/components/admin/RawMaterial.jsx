@@ -180,7 +180,7 @@ export default function RawMaterial() {
                     <div className={`relative transition-all duration-500 ${searchFocused ? 'transform scale-105' : ''}`}>
                         <input
                             type="text"
-                            placeholder="🔍 Search materials by name..."
+                            placeholder=" Search materials by name..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             onFocus={() => setSearchFocused(true)}

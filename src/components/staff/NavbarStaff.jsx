@@ -3,12 +3,28 @@
 import { Link } from "react-router-dom"
 import { User, LogOut, Settings, ChevronDown } from "lucide-react"
 import logo from '../../assets/logo.png' // Make sure to import your logo
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import { supabase } from "../../lib/supabase"
 
 export default function NavbarStaff() {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const  [user, setUser] = useState(null)
+
+  useEffect(()=>{
+    const getUser = async () =>{
+      const {data, error} = await supabase.auth.getUser()
+      
+      if(error){
+        alert(error.message)
+        return
+      }
+      setUser(data.user)
+    }
+    getUser()
+  },[])
 
   return (
+      
     <>
       <div>
         <header className="fixed top-0 left-0 right-0 bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 py-3 shadow-2xl z-50">
@@ -72,8 +88,8 @@ export default function NavbarStaff() {
                 <div className="absolute right-0 mt-3 w-56 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-amber-100 overflow-hidden transform transition-all duration-300 animate-fadeIn">
                   {/* User Info */}
                   <div className="px-4 py-3 bg-linear-to-r from-amber-50 to-white border-b border-amber-100">
-                    <p className="text-sm font-semibold text-amber-900">John Doe</p>
-                    <p className="text-xs text-gray-600">john@example.com</p>
+                    <p className="text-sm font-semibold text-amber-900">{user?.user_metadata?.name || "user"}</p>
+                    <p className="text-xs text-gray-600">{user?.email || "No email"}</p>
                   </div>
 
                   {/* Dropdown Links */}

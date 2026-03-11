@@ -449,7 +449,7 @@ export default function Dashboard() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
           <div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent flex items-center gap-3">
-              <Factory size={36} className="text-blue-600" />
+              {/* <Factory size={36} className="text-blue-600" /> */}
               Production Dashboard
             </h1>
             <p className="text-gray-600 mt-2 text-base sm:text-lg">
@@ -473,11 +473,11 @@ export default function Dashboard() {
             {showForms ? (
               <>
                 <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
-                <span>Close Production Controls</span>
+                <span>Close</span>
               </>
             ) : (
               <>
-                <Target size={20} className="group-hover:scale-110 transition-transform duration-300" />
+                {/* <Target size={20} className="group-hover:scale-110 transition-transform duration-300" /> */}
                 <span>Start Production Planning</span>
               </>
             )}
@@ -491,7 +491,7 @@ export default function Dashboard() {
         `}>
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 border border-blue-100">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-              <Target className="text-blue-600" size={24} />
+              {/* <Target className="text-blue-600" size={24} /> */}
               Production Planning & Recording
             </h2>
             

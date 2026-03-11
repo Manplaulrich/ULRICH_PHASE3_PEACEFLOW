@@ -53,7 +53,7 @@ export default function RawMaterialStaff() {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                         <div>
                             <h1 className="text-4xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-3">
-                                <Package size={36} className="text-indigo-600" />
+                                {/* <Package size={36} className="text-indigo-600" /> */}
                                 Raw Materials Inventory
                             </h1>
                             <p className="text-gray-600 mt-2 text-lg">
@@ -82,12 +82,12 @@ export default function RawMaterialStaff() {
                     <div className={`relative transition-all duration-500 ${searchFocused ? 'transform scale-105' : ''}`}>
                         <input
                             type="text"
-                            placeholder="🔍 Search materials by name..."
+                            placeholder=" Search materials by name..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             onFocus={() => setSearchFocused(true)}
                             onBlur={() => setSearchFocused(false)}
-                            className="w-full px-8 py-5 pl-14 bg-white/80 backdrop-blur-sm border-2 border-gray-200 rounded-2xl shadow-lg focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all duration-300 text-gray-700 placeholder-gray-400 text-lg"
+                            className="w-full px-8 py-5 pl-14 bg-white/80 backdrop-blur-sm border-2 border-gray-400 rounded-2xl shadow-lg focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all duration-300 text-gray-700 placeholder-gray-400 text-lg"
                         />
                         <div className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400">
                             <Search className="w-6 h-6" />
@@ -135,7 +135,7 @@ export default function RawMaterialStaff() {
                                 <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Unit</th>
                                 <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Min Stock</th>
                                 <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Status</th>
-                                <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Stock Level</th>
+                                {/* <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Stock Level</th> */}
                             </tr>
                         </thead>
                         
@@ -143,7 +143,7 @@ export default function RawMaterialStaff() {
                             {filteredMaterials.length > 0 ? (
                                 filteredMaterials.map((items, index) => {
                                     const isLowStock = Number(items.quantity) <= Number(items.minStock)
-                                    const stockPercentage = (Number(items.quantity) / Number(items.minStock)) * 100
+                                    // const stockPercentage = (Number(items.quantity) / Number(items.minStock)) * 100
                                     
                                     return (
                                         <tr 
@@ -153,11 +153,11 @@ export default function RawMaterialStaff() {
                                         >
                                             <td className="py-5 px-6">
                                                 <div className="flex items-center">
-                                                    <div className="w-10 h-10 bg-linear-to-br from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
+                                                    {/* <div className="w-10 h-10 bg-linear-to-br from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
                                                         <span className="text-indigo-600 font-semibold">
                                                             {items.item.charAt(0).toUpperCase()}
                                                         </span>
-                                                    </div>
+                                                    </div> */}
                                                     <span className="font-medium text-gray-900 text-lg">{items.item}</span>
                                                 </div>
                                             </td>
@@ -177,7 +177,7 @@ export default function RawMaterialStaff() {
                                                     {getStockStatus(items.quantity, items.minStock)}
                                                 </span>
                                             </td>
-                                            <td className="py-5 px-6">
+                                            {/* <td className="py-5 px-6">
                                                 <div className="flex items-center gap-3">
                                                     <div className="w-24 bg-gray-200 rounded-full h-2.5">
                                                         <div 
@@ -195,7 +195,7 @@ export default function RawMaterialStaff() {
                                                         {stockPercentage.toFixed(0)}%
                                                     </span>
                                                 </div>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     )
                                 })
@@ -242,16 +242,16 @@ export default function RawMaterialStaff() {
                                         <span className="text-sm text-gray-600">Low Stock</span>
                                     </div>
                                 </div>
-                                <div className="text-sm text-gray-500">
+                                {/* <div className="text-sm text-gray-500">
                                     Showing {filteredMaterials.length} of {material.length} materials
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     )}
                 </div>
 
                 {/* INFO CARD */}
-                <div className="mt-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
+                {/* <div className="mt-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
                     <div className="flex items-start gap-4">
                         <div className="p-3 bg-blue-100 rounded-lg">
                             <CheckCircle className="text-blue-600" size={24} />
@@ -264,7 +264,7 @@ export default function RawMaterialStaff() {
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* Custom Scrollbar Styles */}

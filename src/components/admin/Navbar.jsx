@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom"
 import { User, LogOut, Settings, ChevronDown, UserPlus } from "lucide-react"
 import logo from '../../assets/logo.png' // Make sure to import your logo
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import { supabase } from "../../lib/supabase"
 
 export default function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
+   const [user, setUser]=useState(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,19 +23,31 @@ export default function Navbar() {
     }))
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle signup logic here
-    console.log('Signup data:', formData)
-    // Reset form and close modal
-    setFormData({
-      name: '',
-      email: '',
-      password: '',
-      role: 'staff'
-    })
-    setIsSignupModalOpen(false)
-    setIsProfileOpen(false)
+  const handleSubmit= async (e)=>{
+      e.preventDefault()
+      const {data, error}= await supabase.auth.signUp({
+         email: formData.email,
+         password:formData.password,
+         options: {
+          data:{
+            name:formData.name,
+            role: formData.role
+          }
+         }
+      })
+      if(error){
+        alert(error.message)
+      }
+      await supabase.from("profiles").insert([
+        {
+          id:data.user.id,
+          name:formData.name,
+          email:formData.email,
+          role:formData.role
+        }
+      ])
+      setIsSignupModalOpen(false)
+      alert("user added successfully")
   }
 
   const closeModal = () => {
@@ -45,6 +59,36 @@ export default function Navbar() {
       role: 'staff'
     })
   }
+             useEffect(() => {
+
+    const getUser = async () => {
+
+      const { data: { user }, error } = await supabase.auth.getUser()
+
+      if (error || !user) {
+        alert("No user logged in")
+        return
+      }
+
+      // fetch profile
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("name,email")
+        .eq("id", user.id)
+        .single()
+
+      if (profileError) {
+        alert(profileError.message)
+        return
+      }
+
+      setUser(profile)
+    }
+
+    getUser()
+
+  }, [])
+
 
   return (
     <>
@@ -116,8 +160,8 @@ export default function Navbar() {
                 <div className="absolute right-0 mt-3 w-56 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-amber-100 overflow-hidden transform transition-all duration-300 animate-fadeIn">
                   {/* User Info */}
                   <div className="px-4 py-3 bg-linear-to-r from-amber-50 to-white border-b border-amber-100">
-                    <p className="text-sm font-semibold text-amber-900">John Doe</p>
-                    <p className="text-xs text-gray-600">john@example.com</p>
+                    <p className="text-sm font-semibold text-amber-900">{user?.name || "user"}</p>
+                    <p className="text-xs text-gray-600">{user?.email || "No email"}</p>
                   </div>
 
                   {/* Dropdown Links */}

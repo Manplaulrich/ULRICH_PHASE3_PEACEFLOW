@@ -1,8 +1,41 @@
 import { Link } from "react-router-dom"
 import { Mail, Lock, User, ArrowRight } from "lucide-react"
 import logo from '../assets/logo.png' // Make sure to import your logo
-
+ import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { supabase } from "../lib/supabase"
 export default function Login() {
+   const navigate = useNavigate()
+  const [email, setEmail]=useState("")
+  const [password, setPassword]=useState("")
+
+   const handleLogin =async (e)=>{
+    e.preventDefault()
+    const {data, error} = await supabase.auth.signInWithPassword({
+      email, 
+      password
+    })
+    if(error){
+      alert(error.message)
+    }
+    const user = data.user
+    const {data: profile, error:profileError} = await supabase
+     .from("profiles")
+      .select("*")
+      .eq("id",user.id)
+      .single()
+
+      if(profileError){
+        return alert(profileError.message)
+      }
+
+      alert("Login successfully")
+      if(profile.role == "admin"){
+        navigate("/dashboard")
+      }else{
+        navigate("/dashboardstaff")
+      }
+   }
   return (
     <>
       {/* Navbar */}
@@ -64,7 +97,7 @@ export default function Login() {
           </h1>
           <p className="text-center text-gray-600 mb-8">Login to continue your journey</p>
 
-          <form className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
 
             {/* Email Field */}
             <div className="space-y-2">
@@ -74,6 +107,8 @@ export default function Login() {
               <div className="relative group">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-amber-600 w-5 h-5 group-hover:scale-110 group-hover:text-amber-700 transition-all duration-300" />
                 <input
+                  value={email}
+                  onChange={(e)=>setEmail(e.target.value)}
                   type="email"
                   placeholder="Enter your email"
                   className="w-full border-2 border-gray-200 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-300 bg-gray-50/50 hover:border-amber-300"
@@ -89,6 +124,8 @@ export default function Login() {
               <div className="relative group">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-amber-600 w-5 h-5 group-hover:scale-110 group-hover:text-amber-700 transition-all duration-300" />
                 <input
+                  value={password}
+                  onChange={(e)=>setPassword(e.target.value)}
                   type="password"
                   placeholder="Enter your password"
                   className="w-full border-2 border-gray-200 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-300 bg-gray-50/50 hover:border-amber-300"
@@ -98,6 +135,7 @@ export default function Login() {
 
             {/* Login Button */}
             <button
+            
               type="submit"
               className="w-full bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 text-white py-3 rounded-xl hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group mt-2"
             >
@@ -118,8 +156,6 @@ export default function Login() {
                 Sign Up
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
               </Link>
-              <Link to='/dashboard'>dashboard</Link> <br />
-              <Link to="/staff">STAFF_DASHBOARD</Link>
             </p>
           </div>
 

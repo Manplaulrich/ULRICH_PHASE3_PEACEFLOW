@@ -173,7 +173,7 @@ export default function ProductionSetup() {
             <div className={`relative transition-all duration-300 ${searchFocused ? 'transform scale-105' : ''}`}>
               <input
                 type="text"
-                placeholder="🔍 Search recipes by name, ingredients, or output..."
+                placeholder=" Search recipes by name, ingredients, or output..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onFocus={() => setSearchFocused(true)}
@@ -210,7 +210,7 @@ export default function ProductionSetup() {
         {showForm && (
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-10 border border-indigo-100 transform transition-all duration-500 animate-fadeIn">
             <h2 className="text-2xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6">
-              {editIndex !== null ? "✏️ Edit Recipe" : "✨ Create New Recipe"}
+              {editIndex !== null ? " Edit Recipe" : " Create New Recipe"}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6 mb-6">
@@ -314,7 +314,7 @@ export default function ProductionSetup() {
                 onClick={saveRecipe}
                 className="px-8 py-3 bg-linear-to-r from-indigo-500 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
-                {editIndex !== null ? "✏️ Update Recipe" : "✨ Create Recipe"}
+                {editIndex !== null ? " Update Recipe" : " Create Recipe"}
               </button>
             </div>
           </div>
@@ -370,13 +370,13 @@ export default function ProductionSetup() {
                       onClick={() => onEdit(originalIndex)}
                       className="px-4 py-2 bg-linear-to-r from-yellow-400 to-orange-500 text-white rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 text-sm font-semibold shadow-md"
                     >
-                      ✏️ Edit
+                       Edit
                     </button>
                     <button
                       onClick={() => onDelete(originalIndex)}
                       className="px-4 py-2 bg-linear-to-r from-red-400 to-red-500 text-white rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-300 transform hover:scale-105 text-sm font-semibold shadow-md"
                     >
-                      🗑️ Delete
+                       Delete
                     </button>
                   </div>
                 </div>
