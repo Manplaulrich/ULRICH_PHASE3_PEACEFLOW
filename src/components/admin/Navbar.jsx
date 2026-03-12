@@ -116,7 +116,7 @@ export default function Navbar() {
                 Dashboard
               </Link>
               <Link 
-                to='/rawmaterial' 
+                to='/rawmaterialadmin' 
                 className="px-3 lg:px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg text-sm lg:text-base font-medium whitespace-nowrap"
               >
                 Raw Materials

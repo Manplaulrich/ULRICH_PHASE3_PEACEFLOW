@@ -925,7 +925,7 @@ export default function Dashboard() {
           <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-gray-50 to-gray-100 border-b border-gray-200">
             <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2 text-gray-800">
               <ClipboardList className="text-blue-600" size={24} />
-              Daily Production Log
+              Daily Production 
             </h2>
           </div>
           

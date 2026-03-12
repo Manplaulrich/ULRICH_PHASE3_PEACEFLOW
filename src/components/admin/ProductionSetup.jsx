@@ -1,5 +1,7 @@
 import { useContext, useState} from "react";
 import { RawMaterialContext } from "../itemContext/RawMaterialContext";
+import { supabase } from "../../lib/supabase";
+import { updateRecipeSupabase, createRecipeSupabase, deleteRecipeSupabase } from "./RecipeFunction";
 import Navbar from "./Navbar";
 
 export default function ProductionSetup() {
@@ -20,8 +22,8 @@ export default function ProductionSetup() {
   // Compute filtered recipes directly
   const filteredRecipes = recipe.filter(item => 
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.materials.some(mat => 
-      mat.items.toLowerCase().includes(searchTerm.toLowerCase())
+    item.recipe_materials?.some(mat => 
+      mat.material.name.toLowerCase().includes(searchTerm.toLowerCase())
     ) ||
     item.output.toString().includes(searchTerm)
   );
@@ -67,6 +69,8 @@ export default function ProductionSetup() {
     }
   };
 
+
+
   ////////////////////////////////////////////////////////
   //// REMOVE MATERIAL
   ////////////////////////////////////////////////////////
@@ -77,50 +81,86 @@ export default function ProductionSetup() {
   ////////////////////////////////////////////////////////
   //// CREATE OR UPDATE RECIPE
   ////////////////////////////////////////////////////////
-  const saveRecipe = () => {
-    if (!name || !output || materialsList.length === 0) {
-      alert("Please fill in all fields and add at least one material");
-      return;
+  // const saveRecipe = () => {
+  //   if (!name || !output || materialsList.length === 0) {
+  //     alert("Please fill in all fields and add at least one material");
+  //     return;
+  //   }
+
+  //   const formattedMaterials = materialsList.map(mat => ({
+  //     items: mat.item,
+  //     quant: mat.quantity,
+  //     units: mat.unit
+  //   }));
+
+  //   if(editIndex !== null) {
+  //     const updated = [...recipe];
+  //     updated[editIndex] = {
+  //       ...updated[editIndex],
+  //       name,
+  //       output,
+  //       materials: formattedMaterials
+  //     };
+  //     setRecipe(updated);
+  //   } else {
+  //     setRecipe((prev) => [
+  //       ...prev,
+  //       {
+  //         id: Date.now(),
+  //         name,
+  //         output,
+  //         materials: formattedMaterials
+  //       }
+  //     ]);
+  //   }
+
+  //   resetForm();
+  //   setShowForm(false);
+  // };
+      const saveRecipe = async () => {
+  // map selected materials to their UUIDs
+  const formattedMaterials = materialsList.map((mat) => {
+    const matObj = material.find((m) => m.item === mat.item);
+    return {
+      material_id: matObj.id,
+      quantity: mat.quantity,
+      unit: mat.unit,
+    };
+  });
+
+  if (editIndex !== null) {
+    const recipeId = recipe[editIndex].id;
+    const success = await updateRecipeSupabase({ recipeId, name, output, materials: formattedMaterials });
+    if (success) {
+      alert('Recipe updated successfully');
+      // Optionally refetch or update UI
     }
-
-    const formattedMaterials = materialsList.map(mat => ({
-      items: mat.item,
-      quant: mat.quantity,
-      units: mat.unit
-    }));
-
-    if(editIndex !== null) {
-      const updated = [...recipe];
-      updated[editIndex] = {
-        ...updated[editIndex],
-        name,
-        output,
-        materials: formattedMaterials
-      };
-      setRecipe(updated);
-    } else {
-      setRecipe((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          name,
-          output,
-          materials: formattedMaterials
-        }
-      ]);
+  } else {
+    const userId = supabase.auth.user()?.id;
+    const newRecipe = await createRecipeSupabase({ name, output, materials: formattedMaterials, userId });
+    if (newRecipe) {
+      setRecipe((prev) => [...prev, { ...newRecipe, recipe_materials: formattedMaterials }]);
     }
+  }
 
-    resetForm();
-    setShowForm(false);
-  };
+  resetForm();
+  setShowForm(false);
+};
 
+const onDelete = async (index) => {
+  const recipeId = recipe[index].id;
+  const success = await deleteRecipeSupabase(recipeId);
+  if (success) {
+    setRecipe((prev) => prev.filter((_, i) => i !== index));
+  }
+};
   ////////////////////////////////////////////////////////
   //// DELETE RECIPE
   ////////////////////////////////////////////////////////
-  const onDelete = (index) => {
-    const newRecipe = recipe.filter((_,i) => i !== index);
-    setRecipe(newRecipe);
-  };
+  // const onDelete = (index) => {
+  //   const newRecipe = recipe.filter((_,i) => i !== index);
+  //   setRecipe(newRecipe);
+  // };
 
   ////////////////////////////////////////////////////////
   //// EDIT RECIPE
@@ -353,15 +393,18 @@ export default function ProductionSetup() {
                       </svg>
                       Materials
                     </h3>
-                    
+                     {item.recipe_materials && item.recipe_materials.length >0 ?(
                     <ul className="space-y-2">
-                      {item.materials.map((mat, i) => (
+                      {item.recipe_materials?.map((mat, i) => (
                         <li key={i} className="text-sm bg-white/80 p-2 rounded-lg shadow-sm border border-indigo-50">
-                          <span className="font-medium text-indigo-600">{mat.items}:</span>
-                          <span className="text-gray-600 ml-2">{mat.quant} {mat.units}</span>
+                          <span className="font-medium text-indigo-600">{mat.material?.name}:</span>
+                          <span className="text-gray-600 ml-2">{mat.quantity} {mat.unit}</span>
                         </li>
                       ))}
-                    </ul>
+                    </ul>):(
+                        <p className="text-gray-400 text-sm">No materials listed</p>
+
+                    )}
                   </div>
 
                   {/* CARD FOOTER */}
