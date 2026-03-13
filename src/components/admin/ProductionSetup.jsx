@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { RawMaterialContext } from "../itemContext/RawMaterialContext";
+import { supabase } from "../../lib/supabase";
+import { updateRecipeSupabase, createRecipeSupabase, deleteRecipeSupabase } from "./RecipeFunction";
 import Navbar from "./Navbar";
 
 export default function ProductionSetup() {
@@ -68,6 +70,8 @@ export default function ProductionSetup() {
     }
   };
 
+
+
   ////////////////////////////////////////////////////////
   //// REMOVE MATERIAL
   ////////////////////////////////////////////////////////
@@ -109,6 +113,13 @@ export default function ProductionSetup() {
     setIsSubmitting(false);
   };
 
+const onDelete = async (index) => {
+  const recipeId = recipe[index].id;
+  const success = await deleteRecipeSupabase(recipeId);
+  if (success) {
+    setRecipe((prev) => prev.filter((_, i) => i !== index));
+  }
+};
   ////////////////////////////////////////////////////////
   //// DELETE RECIPE
   ////////////////////////////////////////////////////////
@@ -359,7 +370,7 @@ export default function ProductionSetup() {
                       </svg>
                       Materials
                     </h3>
-                    
+                     {item.recipe_materials && item.recipe_materials.length >0 ?(
                     <ul className="space-y-2">
                       {item.materials?.map((mat, i) => (
                         <li key={i} className="text-sm bg-white p-2 rounded-lg shadow-sm border border-amber-100">
@@ -367,7 +378,10 @@ export default function ProductionSetup() {
                           <span className="text-amber-800 ml-2">{mat.quant} {mat.units}</span>
                         </li>
                       ))}
-                    </ul>
+                    </ul>):(
+                        <p className="text-gray-400 text-sm">No materials listed</p>
+
+                    )}
                   </div>
 
                   {/* CARD FOOTER */}
