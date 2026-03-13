@@ -1,5 +1,6 @@
 import Navbar from "./Navbar"
 import { useContext, useState } from "react"
+import { supabase } from "../../lib/supabase"
 import { RawMaterialContext } from '../itemContext/RawMaterialContext'
 
 export default function RawMaterial() {
@@ -44,32 +45,100 @@ export default function RawMaterial() {
     // ADD OR UPDATE MATERIAL
     //////////////////////////////////////////////////////
 
-    const handleAdd = () => {
-        if (name.trim() === "" || quantity === "" || unit === "" || stocklevel === "") {
-            alert("Please fill all the fields")
-            return
-        }
+    // const handleAdd = () => {
+    //     if (name.trim() === "" || quantity === "" || unit === "" || stocklevel === "") {
+    //         alert("Please fill all the fields")
+    //         return
+    //     }
 
-        const newMaterial = {
-            item: name,
-            quantity: Number(quantity),
-            unit: unit,
-            minStock: Number(stocklevel)
-        }
+    //     const newMaterial = {
+    //         item: name,
+    //         quantity: Number(quantity),
+    //         unit: unit,
+    //         minStock: Number(stocklevel)
+    //     }
+
+    //     if (editIndex !== null) {
+    //         setMaterial(prev => {
+    //             const updated = [...prev]
+    //             updated[editIndex] = newMaterial
+    //             return updated
+    //         })
+    //     } else {
+    //         setMaterial(prev => [newMaterial, ...prev])
+    //     }
+
+    //     resetForm()
+    //     setShow(false)
+    // }
+
+                                               async function fetchMaterials(){
+
+ const { data, error } = await supabase
+ .from("materials")
+ .select("*")
+ .order("id", { ascending: false })
+ if(!error){
+   setMaterial(data)
+ }
+
+}
+
+                  const handleAdd = async () => {
+
+    if (name.trim() === "" || quantity === "" || unit === "" || stocklevel === "") {
+        alert("Please fill all the fields")
+        return
+    }
+
+    const newMaterial = {
+        item: name,
+        quantity: Number(quantity),
+        unit: unit,
+        minStock: Number(stocklevel) // must match Supabase column
+    }
+
+    try {
 
         if (editIndex !== null) {
-            setMaterial(prev => {
-                const updated = [...prev]
-                updated[editIndex] = newMaterial
-                return updated
-            })
+
+            // UPDATE MATERIAL
+            const materialId = material[editIndex].id
+
+            const { error } = await supabase
+                .from("materials")
+                .update(newMaterial)
+                .eq("id", materialId)
+
+            if (error) throw error
+
+            alert("Material updated successfully")
+
         } else {
-            setMaterial(prev => [newMaterial, ...prev])
+
+            // ADD MATERIAL
+            const { error } = await supabase
+                .from("materials")
+                .insert([newMaterial])
+
+            if (error) throw error
+
+            alert("Material added successfully")
+
         }
 
-        resetForm()
-        setShow(false)
+        // Refresh materials
+        fetchMaterials()
+
+    } catch (error) {
+
+        alert(error.message)
+
     }
+    setMaterial((prev)=>[newMaterial, ...prev])
+    resetForm()
+    setShow(false)
+}
 
     //////////////////////////////////////////////////////
     // STATUS COLOR - Keeping red for low stock
@@ -93,12 +162,33 @@ export default function RawMaterial() {
     // DELETE
     //////////////////////////////////////////////////////
 
-    const onDelete = (toindex) => {
-        if (window.confirm('Are you sure you want to delete this item?')) {
-            const newArray = material.filter((_, index) => index !== toindex)
-            setMaterial(newArray)
-        }
-    }
+    // const onDelete = (toindex) => {
+    //     if (window.confirm('Are you sure you want to delete this item?')) {
+    //         const newArray = material.filter((_, index) => index !== toindex)
+    //         setMaterial(newArray)
+    //     }
+    // }
+
+             const onDelete = async (toIndex) => {
+
+  if (!window.confirm("Are you sure you want to delete this item?")) return
+
+  const materialId = material[toIndex].id
+
+  const { error } = await supabase
+    .from("materials")
+    .delete()
+    .eq("id", materialId)
+
+  if (error) {
+    alert("Error deleting material: " + error.message)
+    return
+  }
+
+  // update UI after delete
+  setMaterial(prev => prev.filter((_, index) => index !== toIndex))
+
+}
 
     //////////////////////////////////////////////////////
     // EDIT

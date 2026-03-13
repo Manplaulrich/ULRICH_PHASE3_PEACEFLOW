@@ -1,17 +1,18 @@
-import { useContext, useState} from "react";
+import { useContext, useState } from "react";
 import { RawMaterialContext } from "../itemContext/RawMaterialContext";
 import Navbar from "./Navbar";
 
 export default function ProductionSetup() {
   const [showForm, setShowForm] = useState(false);
-  const { recipe, material, setRecipe } = useContext(RawMaterialContext);
+  const { recipe, material, loading, createRecipe, updateRecipe, deleteRecipe } = useContext(RawMaterialContext);
   
   const [name, setName] = useState('');
   const [rawMaterial, setRawMaterial] = useState("");
   const [output, setOutput] = useState("");
   const [quantity, setQuantity] = useState("");
   const [materialsList, setMaterialsList] = useState([]);
-  const [editIndex, setEditIndex] = useState(null);
+  const [editingRecipe, setEditingRecipe] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Search state
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +21,7 @@ export default function ProductionSetup() {
   // Compute filtered recipes directly
   const filteredRecipes = recipe.filter(item => 
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.materials.some(mat => 
+    item.materials?.some(mat => 
       mat.items.toLowerCase().includes(searchTerm.toLowerCase())
     ) ||
     item.output.toString().includes(searchTerm)
@@ -45,7 +46,7 @@ export default function ProductionSetup() {
     setOutput("");
     setQuantity("");
     setMaterialsList([]);
-    setEditIndex(null);
+    setEditingRecipe(null);
   };
 
   ////////////////////////////////////////////////////////
@@ -57,9 +58,9 @@ export default function ProductionSetup() {
       setMaterialsList([
         ...materialsList,
         {
-          item: rawMaterial,
-          quantity: quantity,
-          unit: selectedMaterial?.unit || 'units'
+          items: rawMaterial,
+          quant: parseFloat(quantity),
+          units: selectedMaterial?.unit || 'units'
         }
       ]);
       setRawMaterial("");
@@ -77,72 +78,71 @@ export default function ProductionSetup() {
   ////////////////////////////////////////////////////////
   //// CREATE OR UPDATE RECIPE
   ////////////////////////////////////////////////////////
-  const saveRecipe = () => {
+  const saveRecipe = async () => {
     if (!name || !output || materialsList.length === 0) {
       alert("Please fill in all fields and add at least one material");
       return;
     }
 
-    const formattedMaterials = materialsList.map(mat => ({
-      items: mat.item,
-      quant: mat.quantity,
-      units: mat.unit
-    }));
+    setIsSubmitting(true);
 
-    if(editIndex !== null) {
-      const updated = [...recipe];
-      updated[editIndex] = {
-        ...updated[editIndex],
-        name,
-        output,
-        materials: formattedMaterials
-      };
-      setRecipe(updated);
+    const recipeData = {
+      name,
+      output: parseFloat(output),
+      materials: materialsList
+    };
+
+    let result;
+    if (editingRecipe) {
+      result = await updateRecipe(editingRecipe.id, recipeData);
     } else {
-      setRecipe((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          name,
-          output,
-          materials: formattedMaterials
-        }
-      ]);
+      result = await createRecipe(recipeData);
     }
 
-    resetForm();
-    setShowForm(false);
+    if (result.success) {
+      resetForm();
+      setShowForm(false);
+    } else {
+      alert(`Error: ${result.error}`);
+    }
+
+    setIsSubmitting(false);
   };
 
   ////////////////////////////////////////////////////////
   //// DELETE RECIPE
   ////////////////////////////////////////////////////////
-  const onDelete = (index) => {
-    const newRecipe = recipe.filter((_,i) => i !== index);
-    setRecipe(newRecipe);
+  const onDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this recipe?')) {
+      const result = await deleteRecipe(id);
+      if (!result.success) {
+        alert(`Error: ${result.error}`);
+      }
+    }
   };
 
   ////////////////////////////////////////////////////////
   //// EDIT RECIPE
   ////////////////////////////////////////////////////////
-  const onEdit = (index) => {
-    const selected = recipe[index];
-    setName(selected.name);
-    setOutput(selected.output);
-    setMaterialsList(
-      selected.materials.map(m => ({
-        item: m.items,
-        quantity: m.quant,
-        unit: m.units
-      }))
-    );
-    setEditIndex(index);
+  const onEdit = (recipe) => {
+    setName(recipe.name);
+    setOutput(recipe.output);
+    setMaterialsList(recipe.materials || []);
+    setEditingRecipe(recipe);
     setShowForm(true);
   };
 
   ////////////////////////////////////////////////////////
   //// UI
   ////////////////////////////////////////////////////////
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-linear-to-br from-amber-50 via-white to-orange-50 flex items-center justify-center">
+        <div className="text-amber-600 text-xl">Loading recipes...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-br from-amber-50 via-white to-orange-50">
       <Navbar />
@@ -158,11 +158,12 @@ export default function ProductionSetup() {
             
             <button
               onClick={toggleForm}
+              disabled={isSubmitting}
               className={`px-6 py-3 rounded-xl text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg ${
                 showForm
                   ? "bg-linear-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800"
                   : "bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700"
-              }`}
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               {showForm ? "✕ Cancel" : "+ Create New Recipe"}
             </button>
@@ -210,7 +211,7 @@ export default function ProductionSetup() {
         {showForm && (
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-10 border border-amber-200 transform transition-all duration-500 animate-fadeIn">
             <h2 className="text-2xl font-bold bg-linear-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent mb-6">
-              {editIndex !== null ? " Edit Recipe" : " Create New Recipe"}
+              {editingRecipe ? " Edit Recipe" : " Create New Recipe"}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6 mb-6">
@@ -224,6 +225,7 @@ export default function ProductionSetup() {
                   type="text"
                   className="w-full border-2 border-amber-200 rounded-xl px-4 py-3 focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all duration-300 group-hover:border-amber-300"
                   placeholder="e.g., Chocolate Cake"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -235,8 +237,10 @@ export default function ProductionSetup() {
                   value={output}
                   onChange={(e) => setOutput(e.target.value)}
                   type="number"
+                  step="0.01"
                   className="w-full border-2 border-amber-200 rounded-xl px-4 py-3 focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all duration-300 group-hover:border-amber-300"
                   placeholder="e.g., 10"
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -251,6 +255,7 @@ export default function ProductionSetup() {
                   value={rawMaterial}
                   onChange={(e) => setRawMaterial(e.target.value)}
                   className="border-2 border-amber-200 rounded-xl px-4 py-3 focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all duration-300"
+                  disabled={isSubmitting}
                 >
                   <option value="">Select Material</option>
                   {material.map((mat, index) => (
@@ -264,15 +269,17 @@ export default function ProductionSetup() {
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                   type="number"
+                  step="0.01"
                   className="border-2 border-amber-200 rounded-xl px-4 py-3 focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all duration-300"
                   placeholder="Quantity"
+                  disabled={isSubmitting}
                 />
 
                 <button
                   onClick={addMaterial}
-                  disabled={!rawMaterial || !quantity}
+                  disabled={!rawMaterial || !quantity || isSubmitting}
                   className={`rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
-                    rawMaterial && quantity
+                    rawMaterial && quantity && !isSubmitting
                       ? "bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-lg"
                       : "bg-amber-200 text-amber-400 cursor-not-allowed"
                   }`}
@@ -293,11 +300,12 @@ export default function ProductionSetup() {
                       className="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 group border border-amber-100"
                     >
                       <span className="text-amber-800">
-                        <span className="font-medium">{mat.item}:</span> {mat.quantity} {mat.unit}
+                        <span className="font-medium">{mat.items}:</span> {mat.quant} {mat.units}
                       </span>
                       <button
                         onClick={() => removeMaterial(index)}
                         className="text-red-400 hover:text-red-600 transition-colors duration-300 opacity-0 group-hover:opacity-100"
+                        disabled={isSubmitting}
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -312,9 +320,10 @@ export default function ProductionSetup() {
             <div className="flex justify-end">
               <button
                 onClick={saveRecipe}
-                className="px-8 py-3 bg-linear-to-r from-amber-500 to-amber-600 text-white rounded-xl font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                disabled={isSubmitting}
+                className="px-8 py-3 bg-linear-to-r from-amber-500 to-amber-600 text-white rounded-xl font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {editIndex !== null ? " Update Recipe" : " Create Recipe"}
+                {isSubmitting ? "Saving..." : (editingRecipe ? " Update Recipe" : " Create Recipe")}
               </button>
             </div>
           </div>
@@ -323,13 +332,10 @@ export default function ProductionSetup() {
         {/* RECIPES GRID */}
         {filteredRecipes.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-            {filteredRecipes.map((item, index) => {
-              // Find the original index for edit/delete functions
-              const originalIndex = recipe.findIndex(r => r.id === item.id);
-              
+            {filteredRecipes.map((item) => {
               return (
                 <div
-                  key={index}
+                  key={item.id}
                   className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-amber-100 overflow-hidden"
                 >
                   <div className="p-6 bg-linear-to-br from-white to-amber-50">
@@ -355,7 +361,7 @@ export default function ProductionSetup() {
                     </h3>
                     
                     <ul className="space-y-2">
-                      {item.materials.map((mat, i) => (
+                      {item.materials?.map((mat, i) => (
                         <li key={i} className="text-sm bg-white p-2 rounded-lg shadow-sm border border-amber-100">
                           <span className="font-medium text-amber-600">{mat.items}:</span>
                           <span className="text-amber-800 ml-2">{mat.quant} {mat.units}</span>
@@ -367,8 +373,9 @@ export default function ProductionSetup() {
                   {/* CARD FOOTER */}
                   <div className="flex justify-between p-4 bg-amber-50 border-t border-amber-100">
                     <button
-                      onClick={() => onEdit(originalIndex)}
+                      onClick={() => onEdit(item)}
                       className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg transition-all duration-300 transform hover:scale-105 text-sm font-semibold shadow-md flex items-center gap-1"
+                      disabled={isSubmitting}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -376,8 +383,9 @@ export default function ProductionSetup() {
                       Edit
                     </button>
                     <button
-                      onClick={() => onDelete(originalIndex)}
+                      onClick={() => onDelete(item.id)}
                       className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all duration-300 transform hover:scale-105 text-sm font-semibold shadow-md flex items-center gap-1"
+                      disabled={isSubmitting}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
