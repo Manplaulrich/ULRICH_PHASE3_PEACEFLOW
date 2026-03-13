@@ -72,13 +72,13 @@ export default function RawMaterial() {
     }
 
     //////////////////////////////////////////////////////
-    // STATUS COLOR
+    // STATUS COLOR - Keeping red for low stock
     //////////////////////////////////////////////////////
 
     const handleStockColor = (quantity, minStock) => {
         return Number(quantity) <= Number(minStock)
             ? "text-red-700 bg-red-100 font-semibold px-4 py-2 rounded-full text-sm"
-            : "text-green-700 bg-green-100 font-semibold px-4 py-2 rounded-full text-sm"
+            : "text-amber-700 bg-amber-100 font-semibold px-4 py-2 rounded-full text-sm"
     }
 
     //////////////////////////////////////////////////////
@@ -131,19 +131,19 @@ export default function RawMaterial() {
     )
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-purple-50">
+        <div className="min-h-screen bg-linear-to-br from-amber-50 via-white to-orange-50">
             <Navbar />
             
             <div className="pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-12">
                 
-                {/* HEADER WITH linear */}
+                {/* HEADER WITH GRADIENT */}
                 <div className="mb-10">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                         <div>
-                            <h1 className="text-4xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                            <h1 className="text-4xl font-bold bg-linear-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent">
                                 Raw Materials
                             </h1>
-                            <p className="text-gray-600 mt-2 text-lg">
+                            <p className="text-amber-600 mt-2 text-lg">
                                 Manage your inventory materials efficiently
                             </p>
                         </div>
@@ -152,8 +152,8 @@ export default function RawMaterial() {
                             onClick={onCloses}
                             className={`px-8 py-4 rounded-xl font-semibold text-white transition-all duration-300 transform hover:scale-105 shadow-lg ${
                                 show
-                                    ? 'bg-linear-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800'
-                                    : 'bg-linear-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700'
+                                    ? 'bg-linear-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800'
+                                    : 'bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700'
                             }`}
                         >
                             {show ? (
@@ -185,9 +185,9 @@ export default function RawMaterial() {
                             onChange={(e) => setSearchTerm(e.target.value)}
                             onFocus={() => setSearchFocused(true)}
                             onBlur={() => setSearchFocused(false)}
-                            className="w-full px-8 py-5 pl-14 bg-white/80 backdrop-blur-sm border-2 border-gray-200 rounded-2xl shadow-lg focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all duration-300 text-gray-700 placeholder-gray-400 text-lg"
+                            className="w-full px-8 py-5 pl-14 bg-white/80 backdrop-blur-sm border-2 border-amber-200 rounded-2xl shadow-lg focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all duration-300 text-gray-700 placeholder-amber-300 text-lg"
                         />
-                        <div className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <div className="absolute left-5 top-1/2 transform -translate-y-1/2 text-amber-300">
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
@@ -195,7 +195,7 @@ export default function RawMaterial() {
                         {searchTerm && (
                             <button
                                 onClick={() => setSearchTerm("")}
-                                className="absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                className="absolute right-5 top-1/2 transform -translate-y-1/2 text-amber-300 hover:text-amber-500 transition-colors"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -206,7 +206,7 @@ export default function RawMaterial() {
                     
                     {/* Search results count */}
                     {searchTerm && (
-                        <div className="mt-3 text-sm text-gray-500 ml-2">
+                        <div className="mt-3 text-sm text-amber-500 ml-2">
                             Found {filteredMaterials.length} {filteredMaterials.length === 1 ? 'material' : 'materials'}
                         </div>
                     )}
@@ -216,19 +216,19 @@ export default function RawMaterial() {
                 {show && (
                     <div 
                         id="material-form"
-                        className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-10 border border-indigo-100 transform transition-all duration-500 animate-slideDown"
+                        className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-10 border border-amber-200 transform transition-all duration-500 animate-slideDown"
                     >
-                        <h2 className="text-2xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-8 flex items-center gap-2">
+                        <h2 className="text-2xl font-bold bg-linear-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent mb-8 flex items-center gap-2">
                             {editIndex !== null ? (
                                 <>
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                     Edit Material
                                 </>
                             ) : (
                                 <>
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     Add New Material
@@ -238,19 +238,19 @@ export default function RawMaterial() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <div className="group">
-                                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-indigo-600 transition-colors">
+                                <label className="block text-sm font-semibold text-amber-700 mb-2 group-focus-within:text-amber-600 transition-colors">
                                     Material Name
                                 </label>
                                 <input
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     placeholder="e.g., Wheat Flour"
-                                    className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all duration-300 group-hover:border-indigo-200"
+                                    className="w-full p-4 border-2 border-amber-200 rounded-xl focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all duration-300 group-hover:border-amber-300"
                                 />
                             </div>
 
                             <div className="group">
-                                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-indigo-600 transition-colors">
+                                <label className="block text-sm font-semibold text-amber-700 mb-2 group-focus-within:text-amber-600 transition-colors">
                                     Quantity
                                 </label>
                                 <input
@@ -258,18 +258,18 @@ export default function RawMaterial() {
                                     onChange={(e) => setQuantity(e.target.value)}
                                     type="number"
                                     placeholder="e.g., 100"
-                                    className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all duration-300 group-hover:border-indigo-200"
+                                    className="w-full p-4 border-2 border-amber-200 rounded-xl focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all duration-300 group-hover:border-amber-300"
                                 />
                             </div>
 
                             <div className="group">
-                                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-indigo-600 transition-colors">
+                                <label className="block text-sm font-semibold text-amber-700 mb-2 group-focus-within:text-amber-600 transition-colors">
                                     Unit
                                 </label>
                                 <select
                                     value={unit}
                                     onChange={(e) => setUnit(e.target.value)}
-                                    className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all duration-300 group-hover:border-indigo-200 bg-white"
+                                    className="w-full p-4 border-2 border-amber-200 rounded-xl focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all duration-300 group-hover:border-amber-300 bg-white"
                                 >
                                     <option value="">Select Unit</option>
                                     <option value="kg">Kilogram (kg)</option>
@@ -282,7 +282,7 @@ export default function RawMaterial() {
                             </div>
 
                             <div className="group">
-                                <label className="block text-sm font-semibold text-gray-700 mb-2 group-focus-within:text-indigo-600 transition-colors">
+                                <label className="block text-sm font-semibold text-amber-700 mb-2 group-focus-within:text-amber-600 transition-colors">
                                     Minimum Stock Level
                                 </label>
                                 <input
@@ -290,7 +290,7 @@ export default function RawMaterial() {
                                     onChange={(e) => setStock(e.target.value)}
                                     type="number"
                                     placeholder="e.g., 20"
-                                    className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 outline-none transition-all duration-300 group-hover:border-indigo-200"
+                                    className="w-full p-4 border-2 border-amber-200 rounded-xl focus:border-amber-400 focus:ring-4 focus:ring-amber-100 outline-none transition-all duration-300 group-hover:border-amber-300"
                                 />
                             </div>
                         </div>
@@ -298,7 +298,7 @@ export default function RawMaterial() {
                         <div className="flex gap-4 justify-end mt-8">
                             <button
                                 onClick={handleAdd}
-                                className="px-8 py-4 bg-linear-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
+                                className="px-8 py-4 bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
                             >
                                 {editIndex !== null ? (
                                     <>
@@ -318,7 +318,7 @@ export default function RawMaterial() {
                             </button>
                             <button
                                 onClick={onCancel}
-                                className="px-8 py-4 bg-gray-500 hover:bg-gray-600 text-white rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
+                                className="px-8 py-4 bg-amber-200 hover:bg-amber-300 text-amber-700 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -330,10 +330,10 @@ export default function RawMaterial() {
                 )}
 
                 {/* ENHANCED TABLE */}
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+                <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden border border-amber-100">
                     <table className="w-full">
                         <thead>
-                            <tr className="bg-linear-to-r from-indigo-600 to-purple-600 text-white">
+                            <tr className="bg-linear-to-r from-amber-700 to-amber-600 text-white">
                                 <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Material</th>
                                 <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Quantity</th>
                                 <th className="py-5 px-6 text-left text-sm font-semibold uppercase tracking-wider">Unit</th>
@@ -343,33 +343,33 @@ export default function RawMaterial() {
                             </tr>
                         </thead>
                         
-                        <tbody className="divide-y divide-gray-200">
+                        <tbody className="divide-y divide-amber-100">
                             {filteredMaterials.length > 0 ? (
                                 filteredMaterials.map((items, index) => (
                                     <tr 
                                         key={index} 
-                                        className="hover:bg-indigo-50/50 transition-all duration-300 group"
+                                        className="hover:bg-amber-50 transition-all duration-300 group"
                                     >
                                         <td className="py-5 px-6">
                                             <div className="flex items-center">
-                                                <div className="w-10 h-10 bg-linear-to-br from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                                                    <span className="text-indigo-600 font-semibold">
+                                                <div className="w-10 h-10 bg-linear-to-br from-amber-100 to-orange-100 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
+                                                    <span className="text-amber-600 font-semibold">
                                                         {items.item.charAt(0).toUpperCase()}
                                                     </span>
                                                 </div>
-                                                <span className="font-medium text-gray-900 text-lg">{items.item}</span>
+                                                <span className="font-medium text-amber-800 text-lg">{items.item}</span>
                                             </div>
                                         </td>
                                         <td className="py-5 px-6">
-                                            <span className="text-lg font-semibold text-gray-800">{items.quantity}</span>
+                                            <span className="text-lg font-semibold text-amber-800">{items.quantity}</span>
                                         </td>
                                         <td className="py-5 px-6">
-                                            <span className="px-4 py-2 bg-gray-100 rounded-lg text-gray-700 font-medium">
+                                            <span className="px-4 py-2 bg-amber-100 rounded-lg text-amber-700 font-medium">
                                                 {items.unit}
                                             </span>
                                         </td>
                                         <td className="py-5 px-6">
-                                            <span className="text-lg font-semibold text-gray-800">{items.minStock}</span>
+                                            <span className="text-lg font-semibold text-amber-800">{items.minStock}</span>
                                         </td>
                                         <td className="py-5 px-6">
                                             <span className={handleStockColor(items.quantity, items.minStock)}>
@@ -380,7 +380,7 @@ export default function RawMaterial() {
                                             <div className="flex gap-3">
                                                 <button
                                                     onClick={() => onEdit(index)}
-                                                    className="px-5 py-2.5 bg-linear-to-r from-yellow-400 to-orange-500 text-white rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2 text-sm font-semibold"
+                                                    className="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2 text-sm font-semibold"
                                                 >
                                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -389,7 +389,7 @@ export default function RawMaterial() {
                                                 </button>
                                                 <button
                                                     onClick={() => onDelete(index)}
-                                                    className="px-5 py-2.5 bg-linear-to-r from-red-400 to-red-500 text-white rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2 text-sm font-semibold"
+                                                    className="px-5 py-2.5 bg-linear-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 shadow-md flex items-center gap-2 text-sm font-semibold"
                                                 >
                                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -404,10 +404,10 @@ export default function RawMaterial() {
                                 <tr>
                                     <td colSpan="6" className="py-16 text-center">
                                         <div className="flex flex-col items-center justify-center">
-                                            <svg className="w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-16 h-16 text-amber-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                                             </svg>
-                                            <p className="text-gray-500 text-xl mb-2">
+                                            <p className="text-amber-600 text-xl mb-2">
                                                 {material.length === 0 
                                                     ? "No materials added yet" 
                                                     : `No materials match "${searchTerm}"`}
@@ -415,14 +415,14 @@ export default function RawMaterial() {
                                             {material.length === 0 ? (
                                                 <button
                                                     onClick={onCloses}
-                                                    className="mt-4 px-6 py-3 bg-linear-to-r from-indigo-500 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+                                                    className="mt-4 px-6 py-3 bg-linear-to-r from-amber-500 to-amber-600 text-white rounded-xl font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 transform hover:scale-105"
                                                 >
                                                     Add Your First Material
                                                 </button>
                                             ) : (
                                                 <button
                                                     onClick={() => setSearchTerm("")}
-                                                    className="mt-4 text-indigo-600 hover:text-indigo-700 font-semibold transition-colors"
+                                                    className="mt-4 text-amber-500 hover:text-amber-600 font-semibold transition-colors"
                                                 >
                                                     Clear Search
                                                 </button>

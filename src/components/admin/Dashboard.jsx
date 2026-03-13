@@ -62,7 +62,7 @@ export default function Dashboard() {
     item => Number(item.quantity) <= Number(item.minStock)
   ).length
 
-  // Low stock alert component
+  // Low stock alert component - Updated with amber theme
   const LowStockAlert = () => {
     const lowStockItems = material.filter(
       item => Number(item.quantity) <= Number(item.minStock)
@@ -70,9 +70,9 @@ export default function Dashboard() {
 
     if (lowStockItems.length === 0) {
       return (
-        <div className="flex items-center gap-3 p-4 bg-green-50 rounded-xl border border-green-200 transition-all duration-300 hover:shadow-md">
-          <CheckCircle size={24} className="text-green-500 shrink-0" />
-          <p className="text-green-700 font-medium text-base">
+        <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-xl border border-amber-200 transition-all duration-300 hover:shadow-md">
+          <CheckCircle size={24} className="text-amber-500 shrink-0" />
+          <p className="text-amber-700 font-medium text-base">
             ✓ All materials are above minimum stock levels
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function Dashboard() {
                 {item.quantity} {item.unit} / Min: {item.minStock} {item.unit}
               </span>
             </div>
-            <span className="px-3 py-1.5 bg-red-100 text-red-600 rounded-full text-xs font-semibold whitespace-nowrap">
+            <span className="px-3 py-1.5 bg-amber-200 text-amber-700 rounded-full text-xs font-semibold whitespace-nowrap">
               {Math.abs(item.quantity - item.minStock)} below min
             </span>
           </div>
@@ -440,7 +440,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-amber-50 via-orange-50 to-amber-50">
       <Navbar />
       
       <div className="px-4 sm:px-6 lg:px-8 py-24 max-w-7xl mx-auto">
@@ -448,11 +448,10 @@ export default function Dashboard() {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
           <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent flex items-center gap-3">
-              {/* <Factory size={36} className="text-blue-600" /> */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-linear-to-r from-amber-700 to-amber-500 bg-clip-text text-transparent flex items-center gap-3">
               Production Dashboard
             </h1>
-            <p className="text-gray-600 mt-2 text-base sm:text-lg">
+            <p className="text-amber-600 mt-2 text-base sm:text-lg">
               Monitor and manage your daily production
             </p>
           </div>
@@ -465,8 +464,8 @@ export default function Dashboard() {
               shadow-lg hover:shadow-xl flex items-center justify-center gap-3
               text-sm sm:text-base
               ${showForms 
-                ? 'bg-linear-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600' 
-                : 'bg-linear-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700'
+                ? 'bg-linear-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800' 
+                : 'bg-linear-to-r from-amber-600 to-amber-500 hover:from-amber-700 hover:to-amber-600'
               }
             `}
           >
@@ -477,7 +476,6 @@ export default function Dashboard() {
               </>
             ) : (
               <>
-                {/* <Target size={20} className="group-hover:scale-110 transition-transform duration-300" /> */}
                 <span>Start Production Planning</span>
               </>
             )}
@@ -489,26 +487,25 @@ export default function Dashboard() {
           transition-all duration-700 ease-in-out overflow-hidden
           ${showForms ? 'max-h-625 opacity-100 mb-8' : 'max-h-0 opacity-0'}
         `}>
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 border border-blue-100">
-            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-              {/* <Target className="text-blue-600" size={24} /> */}
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 border border-amber-200">
+            <h2 className="text-xl sm:text-2xl font-semibold text-amber-800 mb-6 flex items-center gap-2">
               Production Planning & Recording
             </h2>
             
             <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
               
               {/* Goals Management Card */}
-              <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-blue-200">
+              <div className="bg-linear-to-br from-amber-50 to-orange-50 rounded-xl p-4 sm:p-6 border border-amber-200">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-800 flex items-center gap-2">
-                    <Award size={20} className="text-blue-600" />
+                  <h3 className="text-base sm:text-lg font-semibold text-amber-800 flex items-center gap-2">
+                    <Award size={20} className="text-amber-500" />
                     Production Goals
                   </h3>
                   {!showGoalForm && (
                     <button
                       onClick={() => setShowGoalForm(true)}
-                      className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg 
-                               hover:bg-blue-700 transition-all duration-300 text-sm font-medium
+                      className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-500 text-white rounded-lg 
+                               hover:bg-amber-600 transition-all duration-300 text-sm font-medium
                                shadow-md hover:shadow-lg"
                     >
                       <PlusCircle size={16} />
@@ -519,9 +516,9 @@ export default function Dashboard() {
 
                 {/* Cumulative Requirements Summary */}
                 {cumulativeRequirements && cumulativeRequirements.length > 0 && (
-                  <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                    <h4 className="font-medium text-gray-700 mb-3 flex items-center gap-2 text-sm">
-                      <BarChart3 size={16} className="text-blue-600" />
+                  <div className="mb-6 p-4 bg-amber-100 rounded-lg border border-amber-200">
+                    <h4 className="font-medium text-amber-800 mb-3 flex items-center gap-2 text-sm">
+                      <BarChart3 size={16} className="text-amber-600" />
                       Total Material Requirements (All Goals)
                     </h4>
                     <div className="space-y-2 max-h-50 overflow-y-auto custom-scrollbar">
@@ -530,11 +527,11 @@ export default function Dashboard() {
                         const sufficient = available >= req.totalRequired
                         
                         return (
-                          <div key={idx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-sm p-3 bg-white rounded">
-                            <span className="text-gray-600 font-medium">{req.recipe}:</span>
-                            <span className={`font-medium ${sufficient ? 'text-green-600' : 'text-red-600'}`}>
+                          <div key={idx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-sm p-3 bg-white rounded border border-amber-100">
+                            <span className="text-amber-700 font-medium">{req.recipe}:</span>
+                            <span className={`font-medium ${sufficient ? 'text-amber-600' : 'text-amber-700'}`}>
                               {req.totalRequired} {req.unit} needed
-                              <span className="text-gray-500 ml-2">
+                              <span className="text-amber-500 ml-2">
                                 ({available} {req.unit} available)
                               </span>
                             </span>
@@ -547,19 +544,19 @@ export default function Dashboard() {
 
                 {/* Goal Form */}
                 {showGoalForm && (
-                  <div className="mb-6 p-4 bg-white rounded-xl border-2 border-blue-200 animate-fadeIn">
-                    <h4 className="font-medium text-gray-700 mb-4 text-base">
+                  <div className="mb-6 p-4 bg-white rounded-xl border-2 border-amber-200 animate-fadeIn">
+                    <h4 className="font-medium text-amber-800 mb-4 text-base">
                       {editingGoal ? 'Edit Goal' : 'Create New Goal'}
                     </h4>
                     
                     <div className="space-y-4">
                       <div className="space-y-2">
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-amber-700">
                           Select Recipe
                         </label>
                         <select
-                          className="w-full p-3 border-2 border-gray-200 rounded-xl 
-                                   focus:border-blue-400 focus:ring-4 focus:ring-blue-100 
+                          className="w-full p-3 border-2 border-amber-200 rounded-xl 
+                                   focus:border-amber-400 focus:ring-4 focus:ring-amber-100 
                                    outline-none transition-all duration-300 bg-white text-sm"
                           value={newGoalRecipe}
                           onChange={handleNewGoalRecipeChange}
@@ -572,15 +569,15 @@ export default function Dashboard() {
                       </div>
 
                       <div className="space-y-2">
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-amber-700">
                           Daily Goal Quantity
                         </label>
                         <input
                           type="number"
                           min="1"
                           placeholder="Enter target quantity"
-                          className="w-full p-3 border-2 border-gray-200 rounded-xl 
-                                   focus:border-blue-400 focus:ring-4 focus:ring-blue-100 
+                          className="w-full p-3 border-2 border-amber-200 rounded-xl 
+                                   focus:border-amber-400 focus:ring-4 focus:ring-amber-100 
                                    outline-none transition-all duration-300 text-sm"
                           value={newGoalQuantity}
                           onChange={handleNewGoalQuantityChange}
@@ -591,11 +588,11 @@ export default function Dashboard() {
                         <div className="mt-4 space-y-3">
                           <div className={`p-4 rounded-lg ${
                             goalDetails.canComplete 
-                              ? 'bg-green-50 border border-green-200' 
-                              : 'bg-red-50 border border-red-200'
+                              ? 'bg-amber-100 border border-amber-200' 
+                              : 'bg-amber-200 border border-amber-300'
                           }`}>
                             <p className={`text-sm font-medium flex items-center gap-2 ${
-                              goalDetails.canComplete ? 'text-green-700' : 'text-red-700'
+                              goalDetails.canComplete ? 'text-amber-700' : 'text-amber-800'
                             }`}>
                               {goalDetails.canComplete ? (
                                 <>
@@ -612,30 +609,30 @@ export default function Dashboard() {
                           </div>
 
                           {/* Detailed requirements for this goal */}
-                          <div className="bg-white rounded-lg border border-gray-200 p-4">
-                            <h5 className="text-sm font-medium text-gray-700 mb-3">Material Requirements:</h5>
+                          <div className="bg-white rounded-lg border border-amber-200 p-4">
+                            <h5 className="text-sm font-medium text-amber-800 mb-3">Material Requirements:</h5>
                             <div className="space-y-3 max-h-62.5 overflow-y-auto custom-scrollbar">
                               {goalDetails.requirements.map((req, idx) => (
-                                <div key={idx} className="text-sm p-3 bg-gray-50 rounded-lg">
+                                <div key={idx} className="text-sm p-3 bg-amber-50 rounded-lg">
                                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-2">
-                                    <span className="font-medium text-gray-700 text-base">{req.item}</span>
+                                    <span className="font-medium text-amber-800 text-base">{req.item}</span>
                                     <span className={`text-xs px-2 py-1 rounded-full whitespace-nowrap ${
-                                      req.sufficient ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                                      req.sufficient ? 'bg-amber-100 text-amber-700' : 'bg-amber-200 text-amber-800'
                                     }`}>
                                       {req.sufficient ? 'Sufficient' : 'Insufficient'}
                                     </span>
                                   </div>
                                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                                    <div className="bg-white p-2 rounded">
-                                      <span className="text-gray-500">Required:</span>
-                                      <span className="ml-1 font-medium">{req.totalRequired} {req.unit}</span>
+                                    <div className="bg-white p-2 rounded border border-amber-100">
+                                      <span className="text-amber-600">Required:</span>
+                                      <span className="ml-1 font-medium text-amber-800">{req.totalRequired} {req.unit}</span>
                                     </div>
-                                    <div className="bg-white p-2 rounded">
-                                      <span className="text-gray-500">Available:</span>
-                                      <span className="ml-1 font-medium">{req.available} {req.unit}</span>
+                                    <div className="bg-white p-2 rounded border border-amber-100">
+                                      <span className="text-amber-600">Available:</span>
+                                      <span className="ml-1 font-medium text-amber-800">{req.available} {req.unit}</span>
                                     </div>
                                     {req.existingRequired > 0 && (
-                                      <div className="col-span-full text-amber-600 bg-amber-50 p-2 rounded">
+                                      <div className="col-span-full text-amber-600 bg-amber-100 p-2 rounded">
                                         (Includes {req.existingRequired} {req.unit} from other goals)
                                       </div>
                                     )}
@@ -655,8 +652,8 @@ export default function Dashboard() {
                             flex-1 py-3 rounded-lg font-medium transition-all duration-300
                             flex items-center justify-center gap-2 text-sm
                             ${newGoalRecipe && newGoalQuantity && (!goalDetails || goalDetails.canComplete)
-                              ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md'
-                              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                              ? 'bg-amber-500 text-white hover:bg-amber-600 hover:shadow-md'
+                              : 'bg-amber-200 text-amber-400 cursor-not-allowed'
                             }
                           `}
                         >
@@ -665,7 +662,7 @@ export default function Dashboard() {
                         </button>
                         <button
                           onClick={resetGoalForm}
-                          className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all duration-300 text-sm"
+                          className="px-6 py-3 bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200 transition-all duration-300 text-sm"
                         >
                           Cancel
                         </button>
@@ -684,56 +681,56 @@ export default function Dashboard() {
                       return (
                         <div 
                           key={goal.id} 
-                          className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 hover:shadow-lg transition-all duration-300"
+                          className="bg-white rounded-xl p-4 shadow-sm border border-amber-200 hover:shadow-lg transition-all duration-300"
                         >
                           <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-4">
                             <div>
-                              <h4 className="font-semibold text-gray-800 text-base">{goal.recipe}</h4>
-                              <p className="text-sm text-gray-500">Target: {goal.quantity} units</p>
+                              <h4 className="font-semibold text-amber-800 text-base">{goal.recipe}</h4>
+                              <p className="text-sm text-amber-600">Target: {goal.quantity} units</p>
                             </div>
                             <div className="flex gap-2 self-end sm:self-start">
                               <button
                                 onClick={() => handleEditGoal(goal)}
-                                className="p-2 hover:bg-blue-100 rounded-lg transition-colors"
+                                className="p-2 hover:bg-amber-100 rounded-lg transition-colors"
                                 title="Edit Goal"
                               >
-                                <Edit2 size={18} className="text-blue-600" />
+                                <Edit2 size={18} className="text-amber-500" />
                               </button>
                               <button
                                 onClick={() => handleDeleteGoal(goal.id)}
-                                className="p-2 hover:bg-red-100 rounded-lg transition-colors"
+                                className="p-2 hover:bg-amber-200 rounded-lg transition-colors"
                                 title="Delete Goal"
                               >
-                                <Trash2 size={18} className="text-red-600" />
+                                <Trash2 size={18} className="text-amber-600" />
                               </button>
                             </div>
                           </div>
                           
                           <div className="space-y-3">
                             <div className="flex justify-between text-sm">
-                              <span className="text-gray-600">Progress</span>
-                              <span className="font-medium">
+                              <span className="text-amber-600">Progress</span>
+                              <span className="font-medium text-amber-800">
                                 {produced} / {goal.quantity} ({progress.toFixed(1)}%)
                               </span>
                             </div>
-                            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                            <div className="w-full bg-amber-100 rounded-full h-3 overflow-hidden">
                               <div 
                                 className={`h-3 rounded-full transition-all duration-500 ${
                                   progress >= 100 
-                                    ? 'bg-linear-to-r from-green-400 to-green-500' 
-                                    : 'bg-linear-to-r from-blue-400 to-blue-500'
+                                    ? 'bg-linear-to-r from-amber-500 to-amber-600' 
+                                    : 'bg-linear-to-r from-amber-400 to-amber-500'
                                 }`}
                                 style={{ width: `${Math.min(progress, 100)}%` }}
                               />
                             </div>
                           </div>
 
-                          <div className="mt-4 pt-4 border-t border-gray-100">
-                            <p className="text-xs text-gray-500 mb-2">Status:</p>
+                          <div className="mt-4 pt-4 border-t border-amber-100">
+                            <p className="text-xs text-amber-600 mb-2">Status:</p>
                             <span className={`text-xs px-3 py-1.5 rounded-full ${
                               goal.canComplete 
-                                ? 'bg-green-100 text-green-700' 
-                                : 'bg-red-100 text-red-700'
+                                ? 'bg-amber-100 text-amber-700' 
+                                : 'bg-amber-200 text-amber-800'
                             }`}>
                               {goal.canComplete ? 'Achievable' : 'Insufficient Materials'}
                             </span>
@@ -743,31 +740,31 @@ export default function Dashboard() {
                     })
                   ) : (
                     <div className="text-center py-12">
-                      <Target size={56} className="text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500 text-base">No goals set yet</p>
-                      <p className="text-gray-400 text-sm mt-2">Click "Add Goal" to create one</p>
+                      <Target size={56} className="text-amber-300 mx-auto mb-4" />
+                      <p className="text-amber-600 text-base">No goals set yet</p>
+                      <p className="text-amber-500 text-sm mt-2">Click "Add Goal" to create one</p>
                     </div>
                   )}
                 </div>
               </div>
 
               {/* Record Production Card */}
-              <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-xl p-4 sm:p-6 border border-green-200">
-                <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                  <Calendar size={20} className="text-green-600" />
+              <div className="bg-linear-to-br from-amber-50 to-orange-50 rounded-xl p-4 sm:p-6 border border-amber-200">
+                <h3 className="text-base sm:text-lg font-semibold text-amber-800 mb-6 flex items-center gap-2">
+                  <Calendar size={20} className="text-amber-500" />
                   Record Production
                 </h3>
                 
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-amber-700">
                       Select Recipe
                     </label>
                     <select
-                      className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl 
-                               focus:border-green-400 focus:ring-4 focus:ring-green-100 
+                      className="w-full p-3 sm:p-4 border-2 border-amber-200 rounded-xl 
+                               focus:border-amber-400 focus:ring-4 focus:ring-amber-100 
                                outline-none transition-all duration-300 bg-white
-                               hover:border-green-300 text-sm"
+                               hover:border-amber-300 text-sm"
                       value={selectedRecipe}
                       onChange={(e) => setSelectedRecipe(e.target.value)}
                     >
@@ -779,17 +776,17 @@ export default function Dashboard() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-medium text-amber-700">
                       Quantity Produced
                     </label>
                     <input
                       type="number"
                       min="1"
                       placeholder="Enter actual quantity"
-                      className="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl 
-                               focus:border-green-400 focus:ring-4 focus:ring-green-100 
+                      className="w-full p-3 sm:p-4 border-2 border-amber-200 rounded-xl 
+                               focus:border-amber-400 focus:ring-4 focus:ring-amber-100 
                                outline-none transition-all duration-300
-                               hover:border-green-300 text-sm"
+                               hover:border-amber-300 text-sm"
                       value={actualProduced}
                       onChange={(e) => setActualProduced(e.target.value)}
                     />
@@ -803,8 +800,8 @@ export default function Dashboard() {
                       transform hover:scale-[1.02] active:scale-[0.98]
                       flex items-center justify-center gap-2 text-sm sm:text-base
                       ${selectedRecipe && actualProduced && !isSubmitting
-                        ? 'bg-linear-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-lg hover:shadow-xl'
-                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700 shadow-lg hover:shadow-xl'
+                        : 'bg-amber-200 text-amber-400 cursor-not-allowed'
                       }
                     `}
                   >
@@ -821,9 +818,9 @@ export default function Dashboard() {
 
                 {/* Today's Production Summary */}
                 {goals.length > 0 && (
-                  <div className="mt-6 p-5 bg-white/80 backdrop-blur-sm rounded-xl border border-green-200">
-                    <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2 text-base">
-                      <TrendingUp size={18} className="text-green-600" />
+                  <div className="mt-6 p-5 bg-white/80 backdrop-blur-sm rounded-xl border border-amber-200">
+                    <h4 className="font-semibold text-amber-800 mb-4 flex items-center gap-2 text-base">
+                      <TrendingUp size={18} className="text-amber-500" />
                       Today's Production Summary
                     </h4>
                     
@@ -833,19 +830,19 @@ export default function Dashboard() {
                         if (produced === 0) return null
                         
                         return (
-                          <div key={goal.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 p-3 bg-white rounded-lg">
-                            <span className="text-sm text-gray-600">{goal.recipe}:</span>
-                            <span className="text-sm font-medium text-green-600">
+                          <div key={goal.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 p-3 bg-white rounded-lg border border-amber-100">
+                            <span className="text-sm text-amber-700">{goal.recipe}:</span>
+                            <span className="text-sm font-medium text-amber-600">
                               {produced} / {goal.quantity} units
                             </span>
                           </div>
                         )
                       })}
                       
-                      <div className="pt-4 border-t border-gray-200">
-                        <div className="flex justify-between items-center font-medium bg-blue-50 p-3 rounded-lg">
-                          <span className="text-gray-800 text-base">Total Production:</span>
-                          <span className="text-green-600 text-lg">{todayProduction} units</span>
+                      <div className="pt-4 border-t border-amber-200">
+                        <div className="flex justify-between items-center font-medium bg-amber-100 p-3 rounded-lg">
+                          <span className="text-amber-800 text-base">Total Production:</span>
+                          <span className="text-amber-600 text-lg">{todayProduction} units</span>
                         </div>
                       </div>
                     </div>
@@ -858,50 +855,50 @@ export default function Dashboard() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8">
-          <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-4 sm:p-6 border border-gray-100">
+          <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-4 sm:p-6 border border-amber-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-xs sm:text-sm mb-1">Total Materials</p>
-                <p className="text-2xl sm:text-3xl font-bold text-gray-800">{material.length}</p>
-              </div>
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Package className="text-blue-600" size={24} />
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-4 sm:p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-xs sm:text-sm mb-1">Low Stock Items</p>
-                <p className="text-2xl sm:text-3xl font-bold text-gray-800">{lowStockCount}</p>
+                <p className="text-amber-600 text-xs sm:text-sm mb-1">Total Materials</p>
+                <p className="text-2xl sm:text-3xl font-bold text-amber-800">{material.length}</p>
               </div>
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-amber-100 rounded-lg flex items-center justify-center">
-                <AlertTriangle className="text-amber-600" size={24} />
+                <Package className="text-amber-500" size={24} />
               </div>
             </div>
           </div>
           
-          <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-4 sm:p-6 border border-gray-100">
+          <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-4 sm:p-6 border border-amber-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-xs sm:text-sm mb-1">Active Goals</p>
-                <p className="text-2xl sm:text-3xl font-bold text-gray-800">{goals.length}</p>
+                <p className="text-amber-600 text-xs sm:text-sm mb-1">Low Stock Items</p>
+                <p className="text-2xl sm:text-3xl font-bold text-amber-800">{lowStockCount}</p>
               </div>
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                <Target className="text-purple-600" size={24} />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+                <AlertTriangle className="text-amber-500" size={24} />
               </div>
             </div>
           </div>
           
-          <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-4 sm:p-6 border border-gray-100">
+          <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-4 sm:p-6 border border-amber-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-xs sm:text-sm mb-1">Today's Production</p>
-                <p className="text-2xl sm:text-3xl font-bold text-gray-800">{todayProduction}</p>
+                <p className="text-amber-600 text-xs sm:text-sm mb-1">Active Goals</p>
+                <p className="text-2xl sm:text-3xl font-bold text-amber-800">{goals.length}</p>
               </div>
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                <Factory className="text-green-600" size={24} />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+                <Target className="text-amber-500" size={24} />
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-4 sm:p-6 border border-amber-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-amber-600 text-xs sm:text-sm mb-1">Today's Production</p>
+                <p className="text-2xl sm:text-3xl font-bold text-amber-800">{todayProduction}</p>
+              </div>
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+                <Factory className="text-amber-500" size={24} />
               </div>
             </div>
           </div>
@@ -909,9 +906,9 @@ export default function Dashboard() {
 
         {/* Low Stock Alert Section */}
         <div className="bg-white mt-8 rounded-xl shadow-lg overflow-hidden border border-amber-200">
-          <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+          <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-amber-100 to-orange-100 border-b border-amber-200">
             <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2 text-amber-800">
-              <AlertTriangle className="text-amber-600" size={24} />
+              <AlertTriangle className="text-amber-500" size={24} />
               Low Stock Alerts
             </h2>
           </div>
@@ -921,10 +918,10 @@ export default function Dashboard() {
         </div>
 
         {/* Production History Table */}
-        <div className="bg-white mt-8 rounded-xl shadow-lg overflow-hidden border border-gray-200">
-          <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-gray-50 to-gray-100 border-b border-gray-200">
-            <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2 text-gray-800">
-              <ClipboardList className="text-blue-600" size={24} />
+        <div className="bg-white mt-8 rounded-xl shadow-lg overflow-hidden border border-amber-200">
+          <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-amber-100 to-orange-100 border-b border-amber-200">
+            <h2 className="text-lg sm:text-xl font-semibold flex items-center gap-2 text-amber-800">
+              <ClipboardList className="text-amber-500" size={24} />
               Daily Production Log
             </h2>
           </div>
@@ -932,28 +929,28 @@ export default function Dashboard() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-200">
               <thead>
-                <tr className="bg-linear-to-r from-gray-800 to-gray-900 text-white">
+                <tr className="bg-linear-to-r from-amber-700 to-amber-600 text-white">
                   <th className="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold uppercase tracking-wider">Recipe</th>
                   <th className="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold uppercase tracking-wider">Quantity</th>
                   <th className="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold uppercase tracking-wider">Materials Used</th>
                   <th className="px-4 sm:px-6 py-4 text-left text-xs sm:text-sm font-semibold uppercase tracking-wider">Date</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-amber-100">
                 {productionHistory.length > 0 ? (
                   productionHistory.map((p, index) => (
                     <tr 
                       key={p.id || index} 
                       className={`
-                        hover:bg-blue-50/50 transition-colors duration-300
-                        ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}
+                        hover:bg-amber-50 transition-colors duration-300
+                        ${index % 2 === 0 ? 'bg-white' : 'bg-amber-50/30'}
                       `}
                     >
                       <td className="px-4 sm:px-6 py-4">
-                        <span className="font-semibold text-gray-900 text-sm sm:text-base">{p.recipe}</span>
+                        <span className="font-semibold text-amber-800 text-sm sm:text-base">{p.recipe}</span>
                       </td>
                       <td className="px-4 sm:px-6 py-4">
-                        <span className="px-3 py-1.5 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
+                        <span className="px-3 py-1.5 bg-amber-100 text-amber-700 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
                           {p.quantity} units
                         </span>
                       </td>
@@ -962,11 +959,11 @@ export default function Dashboard() {
                           {p.materials && p.materials.map((m, i) => (
                             <div 
                               key={`${p.id}-${i}`} 
-                              className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200"
+                              className="flex items-center gap-2 bg-amber-50 px-3 py-2 rounded-lg border border-amber-200"
                             >
-                              <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                              <span className="text-xs sm:text-sm text-gray-600">{m.item}:</span>
-                              <span className="text-xs sm:text-sm font-semibold text-gray-900">
+                              <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+                              <span className="text-xs sm:text-sm text-amber-700">{m.item}:</span>
+                              <span className="text-xs sm:text-sm font-semibold text-amber-800">
                                 {m.used}{m.unit}
                               </span>
                             </div>
@@ -974,7 +971,7 @@ export default function Dashboard() {
                         </div>
                       </td>
                       <td className="px-4 sm:px-6 py-4">
-                        <span className="text-gray-600 bg-gray-100 px-3 py-1.5 rounded-lg text-xs sm:text-sm whitespace-nowrap">
+                        <span className="text-amber-700 bg-amber-100 px-3 py-1.5 rounded-lg text-xs sm:text-sm whitespace-nowrap">
                           {p.date}
                         </span>
                       </td>
@@ -984,15 +981,15 @@ export default function Dashboard() {
                   <tr>
                     <td colSpan="4" className="px-4 sm:px-6 py-16 text-center">
                       <div className="flex flex-col items-center gap-4">
-                        <ClipboardList size={64} className="text-gray-300" />
-                        <p className="text-gray-500 text-base sm:text-lg font-medium">No production records yet</p>
-                        <p className="text-gray-400 text-sm">Complete end of day production to see records here</p>
+                        <ClipboardList size={64} className="text-amber-300" />
+                        <p className="text-amber-600 text-base sm:text-lg font-medium">No production records yet</p>
+                        <p className="text-amber-500 text-sm">Complete end of day production to see records here</p>
                         {!showForms && (
                           <button
                             onClick={() => setShowForms(true)}
-                            className="mt-4 px-6 sm:px-8 py-3 bg-linear-to-r from-blue-500 to-indigo-600 
+                            className="mt-4 px-6 sm:px-8 py-3 bg-linear-to-r from-amber-500 to-amber-600 
                                      text-white rounded-xl font-semibold text-sm sm:text-base
-                                     hover:from-blue-600 hover:to-indigo-700 
+                                     hover:from-amber-600 hover:to-amber-700 
                                      transition-all duration-300 transform hover:scale-105
                                      shadow-lg hover:shadow-xl"
                           >
@@ -1009,14 +1006,14 @@ export default function Dashboard() {
           
           {/* Table Footer */}
           {productionHistory.length > 0 && (
-            <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-gray-50 to-gray-100 border-t border-gray-200">
+            <div className="px-4 sm:px-6 py-4 bg-linear-to-r from-amber-50 to-orange-50 border-t border-amber-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <span className="text-gray-600 font-medium flex items-center gap-2 text-sm">
-                  <BarChart3 size={16} className="text-gray-400" />
+                <span className="text-amber-600 font-medium flex items-center gap-2 text-sm">
+                  <BarChart3 size={16} className="text-amber-400" />
                   Total Records: {productionHistory.length}
                 </span>
-                <span className="text-gray-600 font-medium flex items-center gap-2 text-sm">
-                  <Clock size={16} className="text-gray-400" />
+                <span className="text-amber-600 font-medium flex items-center gap-2 text-sm">
+                  <Clock size={16} className="text-amber-400" />
                   Last Updated: {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}
                 </span>
               </div>
@@ -1047,17 +1044,17 @@ export default function Dashboard() {
         }
         
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: #f1f1f1;
+          background: #fef3c7;
           border-radius: 10px;
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #cbd5e0;
+          background: #f59e0b;
           border-radius: 10px;
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #94a3b8;
+          background: #d97706;
         }
       `}</style>
     </div>

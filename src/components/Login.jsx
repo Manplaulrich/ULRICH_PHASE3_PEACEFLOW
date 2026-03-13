@@ -158,7 +158,8 @@ export default function Login() {
               </Link>
             </p>
           </div>
-
+                     <Link to="/dashboard">Dashboard</Link>
+                     <Link to='/dashboardstaff'>Staff</Link>
         </div>
       </div>
 

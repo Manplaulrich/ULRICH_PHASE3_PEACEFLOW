@@ -1,18 +1,22 @@
-import { Link } from "react-router-dom"
-import { User, LogOut, Settings, ChevronDown, UserPlus } from "lucide-react"
-import logo from '../../assets/logo.png' // Make sure to import your logo
-import { useState,useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { User, LogOut, Settings, ChevronDown, UserPlus, Menu, X } from "lucide-react"
+import logo from '../../assets/logo.png'
+import { useState, useEffect } from "react"
 import { supabase } from "../../lib/supabase"
 
 export default function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
-   const [user, setUser]=useState(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    role: 'staff' // default role
+    role: 'staff'
   })
 
   const handleInputChange = (e) => {
@@ -23,31 +27,60 @@ export default function Navbar() {
     }))
   }
 
-  const handleSubmit= async (e)=>{
-      e.preventDefault()
-      const {data, error}= await supabase.auth.signUp({
-         email: formData.email,
-         password:formData.password,
-         options: {
-          data:{
-            name:formData.name,
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            name: formData.name,
             role: formData.role
           }
-         }
-      })
-      if(error){
-        alert(error.message)
-      }
-      await supabase.from("profiles").insert([
-        {
-          id:data.user.id,
-          name:formData.name,
-          email:formData.email,
-          role:formData.role
         }
-      ])
+      })
+
+      if (error) throw error
+
+      if (data.user) {
+        const { error: profileError } = await supabase.from("profiles").insert([
+          {
+            id: data.user.id,
+            name: formData.name,
+            email: formData.email,
+            role: formData.role
+          }
+        ])
+
+        if (profileError) throw profileError
+      }
+
       setIsSignupModalOpen(false)
-      alert("user added successfully")
+      alert("User added successfully!")
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        role: 'staff'
+      })
+    } catch (error) {
+      alert(error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut()
+      if (error) throw error
+      navigate('/login')
+    } catch (error) {
+      alert(error.message)
+    }
   }
 
   const closeModal = () => {
@@ -59,43 +92,58 @@ export default function Navbar() {
       role: 'staff'
     })
   }
-             useEffect(() => {
 
+  useEffect(() => {
     const getUser = async () => {
+      try {
+        const { data: { user }, error } = await supabase.auth.getUser()
 
-      const { data: { user }, error } = await supabase.auth.getUser()
+        if (error || !user) {
+          console.log("No user logged in")
+          return
+        }
 
-      if (error || !user) {
-        alert("No user logged in")
-        return
+        const { data: profile, error: profileError } = await supabase
+          .from("profiles")
+          .select("name, email, role")
+          .eq("id", user.id)
+          .single()
+
+        if (profileError) throw profileError
+
+        setUser(profile)
+      } catch (error) {
+        console.error("Error fetching user:", error.message)
       }
-
-      // fetch profile
-      const { data: profile, error: profileError } = await supabase
-        .from("profiles")
-        .select("name,email")
-        .eq("id", user.id)
-        .single()
-
-      if (profileError) {
-        alert(profileError.message)
-        return
-      }
-
-      setUser(profile)
     }
 
     getUser()
 
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        getUser()
+      } else {
+        setUser(null)
+      }
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
 
+  const navLinks = [
+    { to: '/dashboard', label: 'Dashboard' },
+    { to: '/rawmaterial', label: 'Raw Materials' },
+    { to: '/setproduction', label: 'Recipe Setup' },
+    { to: '/report', label: 'Stock Report' }
+  ]
 
   return (
     <>
       <div>
         <header className="fixed top-0 left-0 right-0 bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 py-3 shadow-2xl z-50">
           <div className="flex justify-between items-center px-4 md:px-8 lg:px-12">
-            {/* Logo - Larger size */}
+            {/* Logo */}
             <Link 
               to="/" 
               className="transform hover:scale-110 hover:rotate-3 transition-all duration-500 ease-out"
@@ -107,43 +155,34 @@ export default function Navbar() {
               />
             </Link>
 
-            {/* Navigation Links - Hidden on mobile, visible on desktop */}
+            {/* Desktop Navigation */}
             <nav className="hidden md:flex gap-2 lg:gap-4 xl:gap-6 text-white">
-              <Link 
-                to='/dashboard' 
-                className="px-3 lg:px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg text-sm lg:text-base font-medium whitespace-nowrap"
-              >
-                Dashboard
-              </Link>
-              <Link 
-                to='/rawmaterial' 
-                className="px-3 lg:px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg text-sm lg:text-base font-medium whitespace-nowrap"
-              >
-                Raw Materials
-              </Link>
-              <Link 
-                to='/setproduction' 
-                className="px-3 lg:px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg text-sm lg:text-base font-medium whitespace-nowrap"
-              >
-                Recipe Setup
-              </Link>
-              <Link 
-                to='/report' 
-                className="px-3 lg:px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg text-sm lg:text-base font-medium whitespace-nowrap"
-              >
-                Stock Report
-              </Link>
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.to}
+                  to={link.to} 
+                  className="px-3 lg:px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg text-sm lg:text-base font-medium whitespace-nowrap"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </nav>
 
-            {/* Mobile Menu Button - Optional */}
-            <button className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-all duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
+            {/* Mobile Menu Button */}
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-all duration-300"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
 
-            {/* User Profile with Dropdown */}
-            <div className="relative">
+            {/* User Profile Dropdown */}
+            <div className="relative hidden md:block">
               <button 
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full pl-1 pr-3 lg:pl-2 lg:pr-4 py-1 hover:bg-white/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg group"
@@ -151,22 +190,22 @@ export default function Navbar() {
                 <div className="w-9 h-9 lg:w-10 lg:h-10 bg-linear-to-br from-amber-900 to-amber-700 rounded-full flex items-center justify-center border-2 border-white/90 shadow-md group-hover:shadow-amber-300/50 transition-all duration-300">
                   <User className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
                 </div>
-                <span className="text-white text-sm font-medium hidden sm:block">Profile</span>
+                <span className="text-white text-sm font-medium hidden sm:block">
+                  {user?.name || 'Profile'}
+                </span>
                 <ChevronDown className={`w-3 h-3 lg:w-4 lg:h-4 text-white transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {/* Dropdown Menu */}
               {isProfileOpen && (
                 <div className="absolute right-0 mt-3 w-56 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-amber-100 overflow-hidden transform transition-all duration-300 animate-fadeIn">
-                  {/* User Info */}
                   <div className="px-4 py-3 bg-linear-to-r from-amber-50 to-white border-b border-amber-100">
-                    <p className="text-sm font-semibold text-amber-900">{user?.name || "user"}</p>
+                    <p className="text-sm font-semibold text-amber-900">{user?.name || "User"}</p>
                     <p className="text-xs text-gray-600">{user?.email || "No email"}</p>
+                    <p className="text-xs text-amber-600 mt-1 capitalize">{user?.role || "staff"}</p>
                   </div>
 
-                  {/* Dropdown Links */}
                   <div className="p-2">
-                    {/* Add Member Button */}
                     <button 
                       onClick={() => {
                         setIsSignupModalOpen(true)
@@ -178,26 +217,67 @@ export default function Navbar() {
                       <span>Add Member</span>
                     </button>
 
-                    
-                    <Link 
-                      to="/login" 
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-amber-50 rounded-lg transition-all duration-300 group"
-                      onClick={() => setIsProfileOpen(false)}
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-amber-50 rounded-lg transition-all duration-300 group"
                     >
                       <LogOut className="w-4 h-4 text-amber-600 group-hover:translate-x-1 transition-transform duration-300" />
                       <span>Logout</span>
-                    </Link>
+                    </button>
                   </div>
 
-                  {/* Decorative bottom accent */}
                   <div className="h-1 bg-linear-to-r from-amber-400 via-amber-300 to-amber-400"></div>
                 </div>
               )}
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-xl border-t border-amber-100 animate-slideDown">
+              <div className="p-4 space-y-2">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-4 py-3 text-gray-700 hover:bg-amber-50 rounded-lg transition-all duration-300"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                
+                {/* Mobile User Info */}
+                <div className="border-t border-gray-200 pt-4 mt-4">
+                  <div className="px-4 py-2">
+                    <p className="text-sm font-semibold text-amber-900">{user?.name || "User"}</p>
+                    <p className="text-xs text-gray-600">{user?.email || "No email"}</p>
+                  </div>
+                  
+                  <button
+                    onClick={() => {
+                      setIsSignupModalOpen(true)
+                      setIsMobileMenuOpen(false)
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-amber-50 rounded-lg transition-all duration-300"
+                  >
+                    <UserPlus className="w-4 h-4 text-amber-600" />
+                    <span>Add Member</span>
+                  </button>
+                  
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-amber-50 rounded-lg transition-all duration-300"
+                  >
+                    <LogOut className="w-4 h-4 text-amber-600" />
+                    <span>Logout</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </header>
 
-        {/* Spacer to prevent content from hiding under fixed navbar */}
         <div className="h-20"></div>
       </div>
 
@@ -205,15 +285,12 @@ export default function Navbar() {
       {isSignupModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fadeIn">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-            {/* Modal Header */}
             <div className="bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 p-6 rounded-t-2xl">
               <h2 className="text-2xl font-bold text-white">Add New Member</h2>
               <p className="text-amber-100 text-sm mt-1">Create a new user account</p>
             </div>
 
-            {/* Modal Body */}
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
-              {/* Name Field */}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                   Full Name *
@@ -230,7 +307,6 @@ export default function Navbar() {
                 />
               </div>
 
-              {/* Email Field */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                   Email Address *
@@ -247,7 +323,6 @@ export default function Navbar() {
                 />
               </div>
 
-              {/* Password Field */}
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                   Password *
@@ -265,7 +340,6 @@ export default function Navbar() {
                 />
               </div>
 
-              {/* Role Selection */}
               <div>
                 <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
                   User Role *
@@ -283,20 +357,21 @@ export default function Navbar() {
                 </select>
               </div>
 
-              {/* Modal Footer */}
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-300 font-medium"
+                  disabled={loading}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-medium"
+                  disabled={loading}
+                  className="flex-1 px-4 py-2 bg-linear-to-r from-amber-900 via-amber-700 to-amber-600 text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Add Member
+                  {loading ? 'Adding...' : 'Add Member'}
                 </button>
               </div>
             </form>
@@ -304,9 +379,19 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Add custom styles for animations */}
       <style jsx>{`
         @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slideDown {
           from {
             opacity: 0;
             transform: translateY(-10px);
@@ -321,7 +406,10 @@ export default function Navbar() {
           animation: fadeIn 0.2s ease-out;
         }
         
-        /* Smooth transitions for all interactive elements */
+        .animate-slideDown {
+          animation: slideDown 0.3s ease-out;
+        }
+        
         a, button, .group, input, select {
           transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
