@@ -2,7 +2,6 @@ import Navbar from "./Navbar"
 import { useContext, useState } from "react"
 import { supabase } from "../../lib/supabase"
 import { RawMaterialContext } from '../itemContext/RawMaterialContext'
-import { supabase } from "../../lib/supabase"
 
 export default function RawMaterial() {
     const [name, setName] = useState('')
@@ -100,14 +99,6 @@ export default function RawMaterial() {
     }
 
     try {
-    const newMaterial = {
-        item: name,
-        quantity: Number(quantity),
-        unit: unit,
-        minStock: Number(stocklevel) // must match Supabase column
-    }
-
-    try {
 
         if (editIndex !== null) {
 
@@ -123,44 +114,7 @@ export default function RawMaterial() {
 
             alert("Material updated successfully")
 
-
-            // UPDATE MATERIAL
-            const materialId = material[editIndex].id
-
-            const { error } = await supabase
-                .from("materials")
-                .update(newMaterial)
-                .eq("id", materialId)
-
-            if (error) throw error
-
-            alert("Material updated successfully")
-
         } else {
-
-            // ADD MATERIAL
-            const { error } = await supabase
-                .from("materials")
-                .insert([newMaterial])
-
-            if (error) throw error
-
-            alert("Material added successfully")
-
-        }
-
-        // Refresh materials
-        fetchMaterials()
-
-    } catch (error) {
-
-        alert(error.message)
-
-    }
-    setMaterial((prev)=>[newMaterial, ...prev])
-    resetForm()
-    setShow(false)
-}
 
             // ADD MATERIAL
             const { error } = await supabase
