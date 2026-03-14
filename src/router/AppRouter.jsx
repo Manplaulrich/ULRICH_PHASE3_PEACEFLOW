@@ -20,7 +20,7 @@ export default function AppRouter() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<SignUp/>}/>
            <Route path="/dashboard" element={<Dashboard/>}/>
-           <Route path="/rawmaterialadmin" element={<RawMaterial/>}/>
+           <Route path="/rawmaterial" element={<RawMaterial/>}/>
            <Route path="/setproduction" element={<ProductionSetup/>}/>
            <Route path="/report" element={<StockReport/>}/>
            <Route path="/dashboardstaff" element={<DashboardStaff/>}/>

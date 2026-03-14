@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { RawMaterialContext } from "../itemContext/RawMaterialContext"
-import Navbar from "./Navbar"
+import NavbarStaff from "./Navbar"
 import { Download, FileText, Package, TrendingUp, AlertTriangle, Calendar, Printer, PieChart, BarChart3, CheckCircle, Clock } from "lucide-react"
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
@@ -30,7 +30,7 @@ export default function StockReport() {
     : 0
 
   /////////////////////////////////////////////////////
-  // GENERATE PDF REPORT (UPDATED WITH AMBER THEME)
+  // GENERATE PDF REPORT - UPDATED WITH AMBER THEME
   /////////////////////////////////////////////////////
   
   const generatePDF = () => {
@@ -99,7 +99,7 @@ export default function StockReport() {
       doc.text(`${totalProduction} units`, 115, 76)
 
       /////////////////////////////////////////////////
-      // MATERIAL TABLE - Updated headers to amber
+      // MATERIAL TABLE - Updated headers to amber, keeping red/green status
       /////////////////////////////////////////////////
 
       doc.setTextColor(180, 83, 9) // amber-700
@@ -111,7 +111,7 @@ export default function StockReport() {
 
       const materialRows = material.map((item) => {
         const status = Number(item.quantity) <= Number(item.minStock) ? "Low Stock" : "In Stock"
-        const statusColor = Number(item.quantity) <= Number(item.minStock) ? [239, 68, 68] : [217, 119, 6]
+        const statusColor = Number(item.quantity) <= Number(item.minStock) ? [239, 68, 68] : [34, 197, 94] // Red for low, Green for in stock
         
         return [
           item.item,
@@ -259,18 +259,18 @@ export default function StockReport() {
   }
 
   /////////////////////////////////////////////////////
-  // STATUS COLOR - Keeping red for low stock, amber for in stock
+  // STATUS COLOR - Keeping original red/green
   /////////////////////////////////////////////////////
 
   const getStatusClass = (quantity, minStock) => {
     return Number(quantity) <= Number(minStock)
       ? "bg-linear-to-r from-red-50 to-red-100 text-red-700 border-l-4 border-red-500"
-      : "bg-linear-to-r from-amber-50 to-amber-100 text-amber-700 border-l-4 border-amber-500"
+      : "bg-linear-to-r from-green-50 to-green-100 text-green-700 border-l-4 border-green-500"
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-amber-50 via-white to-orange-50">
-      <Navbar />
+    <div className="min-h-screen bg-linear-to-br from-amber-50 via-white to-gray-50">
+      <NavbarStaff />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         
@@ -311,9 +311,9 @@ export default function StockReport() {
           </div>
         </div>
 
-        {/* STATISTICS CARDS - Updated to amber theme */}
+        {/* STATISTICS CARDS - Updated to amber theme, keeping red/green accents */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 p-6 border border-amber-100">
+          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 p-6 border border-amber-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-amber-600 text-sm mb-1 flex items-center gap-1">
@@ -329,23 +329,23 @@ export default function StockReport() {
             </div>
           </div>
 
-          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 p-6 border border-amber-100">
+          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 p-6 border border-amber-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-amber-600 text-sm mb-1 flex items-center gap-1">
-                  <TrendingUp size={14} className="text-amber-500" />
+                  <TrendingUp size={14} className="text-green-500" />
                   Total Production
                 </p>
                 <p className="text-4xl font-bold text-amber-800">{totalProduction}</p>
                 <p className="text-xs text-amber-400 mt-2">Units produced</p>
               </div>
-              <div className="w-14 h-14 bg-linear-to-br from-amber-400 to-amber-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <div className="w-14 h-14 bg-linear-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <TrendingUp className="text-white" size={28} />
               </div>
             </div>
           </div>
 
-          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 p-6 border border-amber-100">
+          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 p-6 border border-amber-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-amber-600 text-sm mb-1 flex items-center gap-1">
@@ -361,7 +361,7 @@ export default function StockReport() {
             </div>
           </div>
 
-          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 p-6 border border-amber-100">
+          <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 p-6 border border-amber-200">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-amber-600 text-sm mb-1 flex items-center gap-1">
@@ -378,7 +378,7 @@ export default function StockReport() {
           </div>
         </div>
 
-        {/* MATERIAL TABLE - Updated to amber */}
+        {/* MATERIAL TABLE - Updated to amber, keeping red/green status */}
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden mb-8 border border-amber-200">
           <div className="px-8 py-6 bg-linear-to-r from-amber-600 to-amber-500">
             <h2 className="text-xl font-semibold text-white flex items-center gap-3">
@@ -434,7 +434,7 @@ export default function StockReport() {
                         item.minStock
                       )}`}>
                         <span className={`w-2 h-2 rounded-full ${
-                          Number(item.quantity) <= Number(item.minStock) ? 'bg-red-500' : 'bg-amber-500'
+                          Number(item.quantity) <= Number(item.minStock) ? 'bg-red-500' : 'bg-green-500'
                         }`}></span>
                         {Number(item.quantity) <= Number(item.minStock) ? 'Low Stock' : 'In Stock'}
                       </div>
@@ -445,11 +445,11 @@ export default function StockReport() {
             </table>
           </div>
 
-          {/* Table Footer */}
+          {/* Table Footer - Updated to amber */}
           <div className="px-8 py-4 bg-linear-to-r from-amber-50 to-orange-50 border-t border-amber-200">
             <div className="flex justify-between items-center text-sm">
               <span className="text-amber-600 font-medium flex items-center gap-2">
-                <CheckCircle size={16} className="text-amber-500" />
+                <CheckCircle size={16} className="text-green-500" />
                 Healthy Stock: {healthyStock} items
               </span>
               <span className="text-amber-600 font-medium flex items-center gap-2">
@@ -507,7 +507,7 @@ export default function StockReport() {
                       <td className="px-8 py-5">
                         <div className="space-y-2">
                           {p.materials?.map((m, i) => (
-                            <div key={i} className="flex items-center gap-2 text-sm bg-amber-50 p-2 rounded-lg">
+                            <div key={i} className="flex items-center gap-2 text-sm bg-amber-50 p-2 rounded-lg border border-amber-200">
                               <span className="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
                               <span className="text-amber-700">{m.item}:</span>
                               <span className="font-semibold text-amber-800">{m.used}{m.unit}</span>
@@ -528,7 +528,7 @@ export default function StockReport() {
                       <div className="flex flex-col items-center gap-4">
                         <Calendar size={48} className="text-amber-300" />
                         <p className="text-amber-600 text-lg">No production records available</p>
-                        <p className="text-amber-400 text-sm">Start recording production to see data here</p>
+                        <p className="text-amber-500 text-sm">Start recording production to see data here</p>
                       </div>
                     </td>
                   </tr>
@@ -537,12 +537,12 @@ export default function StockReport() {
             </table>
           </div>
 
-          {/* Production Summary Footer */}
+          {/* Production Summary Footer - Updated to amber */}
           {productionHistory.length > 0 && (
             <div className="px-8 py-4 bg-linear-to-r from-amber-50 to-orange-50 border-t border-amber-200">
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <span className="text-amber-600 font-medium flex items-center gap-2">
-                  <TrendingUp size={16} className="text-amber-500" />
+                  <TrendingUp size={16} className="text-green-500" />
                   Total Production: {totalProduction} units
                 </span>
                 <span className="text-amber-600 font-medium flex items-center gap-2">
