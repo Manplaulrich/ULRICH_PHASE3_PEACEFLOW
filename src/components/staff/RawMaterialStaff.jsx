@@ -227,7 +227,7 @@ export default function RawMaterialStaff() {
                 </div>
 
                 {/* INFO CARD - Updated to amber theme */}
-                <div className="mt-8 bg-amber-50 rounded-xl p-6 border border-amber-200">
+                {/* <div className="mt-8 bg-amber-50 rounded-xl p-6 border border-amber-200">
                     <div className="flex items-start gap-4">
                         <div className="p-3 bg-amber-100 rounded-lg">
                             <CheckCircle className="text-amber-600" size={24} />
@@ -240,7 +240,7 @@ export default function RawMaterialStaff() {
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* Custom Scrollbar Styles - Updated to amber */}

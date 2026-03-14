@@ -147,7 +147,7 @@ export default function RawMaterial() {
     const handleStockColor = (quantity, minStock) => {
         return Number(quantity) <= Number(minStock)
             ? "text-red-700 bg-red-100 font-semibold px-4 py-2 rounded-full text-sm"
-            : "text-amber-700 bg-amber-100 font-semibold px-4 py-2 rounded-full text-sm"
+            : "text-black bg-green-200 font-semibold px-4 py-2 rounded-full text-sm"
     }
 
     //////////////////////////////////////////////////////
@@ -366,8 +366,7 @@ export default function RawMaterial() {
                                     <option value="g">Grams (g)</option>
                                     <option value="L">Liter (L)</option>
                                     <option value="pcs">Pieces (pcs)</option>
-                                    <option value="ml">Milliliter (ml)</option>
-                                    <option value="dozen">Dozen</option>
+                                    
                                 </select>
                             </div>
 
